@@ -40,11 +40,13 @@ function makeProducerDiv(producer) {
     containerDiv.className = 'producer';
     const displayName = makeDisplayNameFromId(producer.id);
     const currentCost = producer.price;
-    const html = `
+    containerDiv.innerHTML = `
   <div class="producer-column">
     <div class="producer-title">${displayName}</div>
-    <button type="button" id="buy_${producer.id}">Buy</button>
-    <button type="button" id="sell_${producer.id}">Sell</button>
+    <div class="producer-buttons">
+        <button type="button" id="buy_${producer.id}">Buy</button>
+        <button type="button" id="sell_${producer.id}">Sell</button>
+    </div>
   </div>
   <div class="producer-column">
     <div>Quantity: ${producer.qty}</div>
@@ -53,7 +55,6 @@ function makeProducerDiv(producer) {
     <div>Sell: ${Math.floor(currentCost / 1.2)}</div>
   </div>
   `;
-    containerDiv.innerHTML = html;
     return containerDiv;
 }
 
@@ -124,7 +125,7 @@ function tick(data) {
 }
 
 /**************
- *   SLICE 4 - Selling Producer
+ *   SLICE 4 - Selling Producers
  **************/
 function canSellProducer(data, producerId) {
     return getProducerById(data, producerId).qty > 0;
@@ -154,6 +155,15 @@ function sellButtonClick(event, data){
         }
     }
 }
+/**************
+ *   SLICE 5 - disable buttons when condition do not allow you to use
+ **************/
+
+// Event on target id
+// Data to check conditions
+// disable all that do not meet conditions
+// enable all that do meet the conditions
+
 
 /*************************
  *  Start your engines!
