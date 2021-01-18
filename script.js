@@ -68,7 +68,20 @@ function renderProducers(data) {
     let producerContainer = document.querySelector('#producer_container');
     unlockProducers(data.producers, data.coffee);
     deleteAllChildNodes(producerContainer);
-    getUnlockedProducers(data).forEach(prod => producerContainer.appendChild(makeProducerDiv(prod)))
+    getUnlockedProducers(data).forEach(prod => {
+        producerContainer.appendChild(makeProducerDiv(prod));
+        if( data.coffee < prod.price ){
+            document.getElementById(`buy_${prod.id}`).setAttribute('disabled', 'true')
+        }else{
+            document.getElementById(`buy_${prod.id}`).removeAttribute('disabled')
+        }
+        if( prod.qty === 0 ){
+            document.getElementById(`sell_${prod.id}`).setAttribute('disabled', 'true')
+        }else{
+            document.getElementById(`sell_${prod.id}`).removeAttribute('disabled')
+        }
+
+    })
 }
 
 /**************
@@ -98,7 +111,7 @@ function attemptToBuyProducer(data, producerId) {
         producer.qty++
         data.coffee = coffeeQt - producer.price
         producer.price = updatePrice(producer.price)
-        data.totalCPS += producer.cps
+        data.totalCPS += producer.cps;
         return true;
     } else {
         return false
@@ -158,12 +171,7 @@ function sellButtonClick(event, data){
 /**************
  *   SLICE 5 - disable buttons when condition do not allow you to use
  **************/
-
-// Event on target id
-// Data to check conditions
-// disable all that do not meet conditions
-// enable all that do meet the conditions
-
+// Added the condition within render producer function
 
 /*************************
  *  Start your engines!
@@ -192,9 +200,9 @@ if (typeof process === 'undefined') {
     // Pass in the browser event and our data object to the event listener
     const producerContainer = document.getElementById('producer_container');
     producerContainer.addEventListener('click', event => {
-
         if(event.target.id.slice(0,3) === 'buy' ){
             buyButtonClick(event, data);
+
         } else if(event.target.id.slice(0,4) === 'sell') {
             sellButtonClick(event, data);
         }
