@@ -5,7 +5,10 @@
  **************/
 
 function updateCoffeeView(coffeeQty) {
-    document.querySelector("#coffee_counter").innerText = coffeeQty;
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    document.querySelector("#coffee_counter").innerText = numberWithCommas(coffeeQty)
 }
 
 function clickCoffee(data) {
