@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pokemon Go Search Tool</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<body>
+<script src="pogo-searcher/data/searcher.js" ></script>
+<script>
+    function findNew(id){
+        let output = data[id]['value']  + " & !" + data[id]['tag'];
+        copyContent(output);
+    }
+    function copyTag(id){
+        let output = data[id]['tag'];
+        copyContent(output);
+    }
+
+    async function copyContent(data) {
+        let text = data;
+
+        try {
+            await navigator.clipboard.writeText(text);
+            console.log('Content copied to clipboard');
+            console.log('-- Value: ' + text)
+            /* Resolved - text copied to clipboard successfully */
+        } catch (err) {
+            console.error('Failed to copy: ', err);
+            /* Rejected - text failed to copy to the clipboard */
+        }
+    }
+
+</script>
+<div class="container">
+    <div id="app"></div>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Babel Script -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/jsx">
+        const app = document.getElementById('app');
+        const title = "Pokemon Go Search Tool"
+
+        function Header(){
+            return <h1>{title}</h1>
+        }
+
+        function List(){
+            return(
+                    <ul className="list-group">
+                        {data.map( (val) => (
+                            <li className={'list-group-item'} key={val.name}>
+                                <div className={"row"} >
+                                    <div className={"col"}>
+                                        <h4>{val.title} &nbsp;
+                                            <button type="button" className={"btn btn-outline-info btn-sm"} data-bs-toggle={"modal"} data-bs-target={"#" + "Modal" + val.id }>more info</button> <br/>
+                                            <small className={"text-body-secondary h6"}>Tag: {val.tag}</small>
+                                        </h4>
+                                    </div>
+                                    <div className="col">
+                                        <div className={"d-flex p-2"}>
+                                            <button className={"btn btn-dark btn"} onClick={ () => copyTag(val.id) } >Copy Tag Name</button> &nbsp;
+                                            <button className={"btn btn-danger btn-lg"} onClick={() => findNew(val.id) }>Pokemon List</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="modal fade" id={"Modal" + val.id} tabIndex="-1" aria-labelledby={val.id + "ModalLabel"} aria-hidden="true">
+                                    <div className="modal-dialog">
+                                        <div className="modal-content">
+                                            <div className="modal-header">
+                                                <h1 className="modal-title fs-5" id="exampleModalLabel">{val.title}</h1>
+                                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div className="modal-body">
+                                                { (val.info === "")? <p>No Information at this time</p> : <p>{val.info}</p> }
+
+                                            </div>
+                                            <div className="modal-footer">
+                                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+            )
+        }
+
+        function SearchOptions(){
+            return (
+                <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    <input type="checkbox" className="btn-check" id="showFavorite" autoComplete="off" />
+                    <label className="btn btn-outline-primary" htmlFor="showFavorite">Hide Favorite</label>
+
+                    <input type="checkbox" className="btn-check" id="btncheck2" autoComplete="off" />
+                    <label className="btn btn-outline-primary" htmlFor="btncheck2">Checkbox 2</label>
+
+                    <input type="checkbox" className="btn-check" id="btncheck3" autoComplete="off" />
+                    <label className="btn btn-outline-primary" htmlFor="btncheck3">Checkbox 3</label>
+                </div>
+            )
+        }
+
+        function HomePage(){
+            return(
+                <div>
+                    <header> <Header /> </header>
+                    <section> <SearchOptions /> </section>
+                    <section> <List /> </section>
+                </div>
+            )
+        }
+
+        ReactDOM.render( <HomePage />, app);
+    </script>
+
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
+</html>
