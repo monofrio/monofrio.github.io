@@ -66,7 +66,12 @@
         const title = "Pokemon Go Search Tool"
 
         function Header(){
-            return <h1>{title}</h1>
+            return (
+                <header>
+                <h1>{title} </h1>
+                <small >Last Updated: {appInfo.updated} - Ver: {appInfo.version}</small>
+                </header>
+            )
         }
 
         function List(){
@@ -77,34 +82,18 @@
                                 <div className={"row"} >
                                     <div className={"col"}>
                                         <h4>{val.title} &nbsp;
-                                            <button type="button" className={"btn btn-outline-info btn-sm"} data-bs-toggle={"modal"} data-bs-target={"#" + "Modal" + val.id }>more info</button> <br/>
+                                            { (val.info === "")? "" :<button type="button" className={"btn btn-outline-info btn-sm"} data-bs-toggle={"modal"} data-bs-target={"#" + "Modal" + val.id }>more info</button>} <br/>
                                             {(val.tag === "")? "" : <small className={"text-body-secondary h6"}>Tag: {val.tag}</small> }
                                         </h4>
                                     </div>
                                     <div className="col">
                                         <div className={"d-flex p-2"}>
-                                            <button className={"btn btn-dark btn"} onClick={ () => copyTag(val.id) } >Copy Tag Name</button> &nbsp;
+                                            { (val.tag === "" ) ? "" : <button className={"btn btn-dark btn"} onClick={ () => copyTag(val.id) } >Copy Tag Name</button> }
                                             <button className={"btn btn-success btn-lg"} onClick={() => copySearchString(val.id) }>Copy Search String</button>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="modal fade" id={"Modal" + val.id} tabIndex="-1" aria-labelledby={val.id + "ModalLabel"} aria-hidden="true">
-                                    <div className="modal-dialog">
-                                        <div className="modal-content">
-                                            <div className="modal-header">
-                                                <h1 className="modal-title fs-5" id="exampleModalLabel">{val.title}</h1>
-                                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div className="modal-body">
-                                                { (val.info === "")? <p>No Information at this time</p> : <p>{val.info}</p> }
-
-                                            </div>
-                                            <div className="modal-footer">
-                                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                { (val.info === "")? "" : <Modal val={val}/>}
                             </li>
                         ))}
                     </ul>
@@ -117,6 +106,28 @@
                     <input type="checkbox" className="btn-check" id="showFavorite" autoComplete="off" />
                     <label className="btn btn-outline-primary" htmlFor="showFavorite">Hide Favorite</label>
                 </div>
+            )
+        }
+
+        function Modal( {val} ){
+            return(
+                <div className="modal fade" id={"Modal" + val.id} tabIndex="-1" aria-labelledby={val.id + "ModalLabel"} aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">{val.title}</h1>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div className="modal-body">
+                                { (val.info === "")? <p>No Information at this time</p> : <p>{val.info}</p> }
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             )
         }
 

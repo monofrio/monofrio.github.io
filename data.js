@@ -55,7 +55,7 @@ const data = [
     },
     {
         "id": "6",
-        "name": "2x Transfer",
+        "name": "December 2x Transfer",
         "title":"2x Transfer Candy",
         "pokemon": "stufful, bergmite, bronzor, squirtle, scatterbug, charmander, bulbasaur",
         "search": "!favorite & !4* & !3* & !pvp & !xl & !xxl &!shiny",
@@ -63,3 +63,7 @@ const data = [
         "info": ""
     },
 ];
+const appInfo =     {
+    "version": "1.0.1",
+    "updated": "December 3, 2023"
+}
