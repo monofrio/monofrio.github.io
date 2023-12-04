@@ -57,7 +57,7 @@ const data = [
         "id": "6",
         "name": "2x Transfer",
         "title":"2x Transfer Candy",
-        "pokemon": "stufful, bergmite, bronzor, squrtle, scatterbug, charmander, bulbasaur",
+        "pokemon": "stufful, bergmite, bronzor, squirtle, scatterbug, charmander, bulbasaur",
         "search": "!favorite & !4* & !3* & !pvp & !xl & !xxl &!shiny",
         "tag": "2x Transfer",
         "info": ""
