@@ -68,8 +68,12 @@
         function Header(){
             return (
                 <header>
-                <h1>{title} </h1>
-                <small >Last Updated: {appInfo.updated} - Ver: {appInfo.version}</small>
+                    <div className="alert alert-warning" role="alert">
+                        This is still in Beta.
+                    </div>
+                    <h1>{title} </h1>
+                    <small >Last Updated: {appInfo.updated} - Ver: {appInfo.version}</small>
+
                 </header>
             )
         }
@@ -82,13 +86,12 @@
                                 <div className={"row"} >
                                     <div className={"col"}>
                                         <h4>{val.title} &nbsp;
-                                            { (val.info === "")? "" :<button type="button" className={"btn btn-outline-info btn-sm"} data-bs-toggle={"modal"} data-bs-target={"#" + "Modal" + val.id }>more info</button>} <br/>
-                                            {(val.tag === "")? "" : <small className={"text-body-secondary h6"}>Tag: {val.tag}</small> }
+                                            { (val.info === "")? "" :<><button type="button" className={"btn btn-outline-info btn-sm"} data-bs-toggle={"modal"} data-bs-target={"#" + "Modal" + val.id }>more info</button></>}
+                                            {(val.tag === "")? "" : <><br/><button className={"btn btn-dark btn h6"} onClick={ () => copyTag(val.id) } >Tag: {val.tag}</button></> }
                                         </h4>
                                     </div>
                                     <div className="col">
                                         <div className={"d-flex p-2"}>
-                                            { (val.tag === "" ) ? "" : <button className={"btn btn-dark btn"} onClick={ () => copyTag(val.id) } >Copy Tag Name</button> }
                                             <button className={"btn btn-success btn-lg"} onClick={() => copySearchString(val.id) }>Copy Search String</button>
                                         </div>
                                     </div>
