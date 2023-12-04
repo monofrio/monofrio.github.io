@@ -41,7 +41,7 @@
             "title":"Free Evolve when traded",
             "pokemon": "haunter, karrablast, machoke, phantump, pumpkaboo, Shelmet, Boldore, Graveler, Gurdurr, Kadabra",
             "search": "!favorite & !4* & traded",
-            "tag": "evol",
+            "tag": "evolve",
             "info": ""
         },
         {
@@ -84,6 +84,8 @@
             copyContent(superString);
         } else if( tag.length > 0 && pokemon.length > 0 && output.length > 0){
             copyContent( output + " & " + pokemon + " & !" + tag );
+        } else if ( tag.length > 0 && pokemon.length > 0){
+            copyContent( pokemon + " & !" + tag )
         }
 
     }
@@ -111,6 +113,7 @@
             /* Rejected - text failed to copy to the clipboard */
         }
     }
+
 
 </script>
 <div class="container">
