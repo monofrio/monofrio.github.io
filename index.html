@@ -6,43 +6,93 @@
     <title>Pokemon Go Search Tool</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <body>
-<script>const data = [
-    {
-        "id" : "0",
-        "name" : "12 Candy",
-        "title" : "12 Candy Evolve Pokemon",
-        "value": "",
-        "pokemon": "Caterpie, Weedle, Pidgey, Wurmple, Whismwur, Pidove",
-        "search": "",
-        "tag": "12candy",
-        "info": "Pokemons that cost only 12 candies to evolve can help in 2X-xp on evolving pokemons and Field Research."
-    },
-    {
-        "id": "1",
-        "name": "Purify",
-        "title":"1000 Stardust Purify",
-        "value": "Shadow",
-        "pokemon": "weedle, rattata, geodude, ducklett, zubat, foongus",
-        "search": "",
-        "tag": "purify",
-        "info": ""
-    },
-    {
-        "id": "2",
-        "name": "Free Evolve",
-        "title":"Free Evolve when traded",
-        "value": "haunter, karrablast, machoke, phantump, pumpkaboo, Shelmet, Boldore, Graveler, Gurdurr, Kadabra",
-        "pokemon": "haunter, karrablast, machoke, phantump, pumpkaboo, Shelmet, Boldore, Graveler, Gurdurr, Kadabra",
-        "search": "!favorite & !shadow & !shiny & !4* & !lucky & !traded & !free-evol",
-        "tag": "free-evol",
-        "info": ""
-    },
-];</script>
 <script>
+    const data = [
+        {
+            "id" : "0",
+            "name" : "12 Candy",
+            "title" : "12 Candy Evolve Pokemon",
+            "pokemon": "Caterpie, Weedle, Pidgey, Wurmple, Whismwur, Pidove",
+            "search": "",
+            "tag": "12candy",
+            "info": "Pokemons that cost only 12 candies to evolve can help in 2X-xp on evolving pokemons and Field Research."
+        },
+        {
+            "id": "1",
+            "name": "Purify",
+            "title":"1000 Stardust to Purify",
+            "pokemon": "weedle, rattata, geodude, ducklett, zubat, foongus",
+            "search": "shadow",
+            "tag": "purify",
+            "info": ""
+        },
+        {
+            "id": "2",
+            "name": "Trade: Free Evolve",
+            "title":"Free Evolve when traded",
+            "pokemon": "haunter, karrablast, machoke, phantump, pumpkaboo, Shelmet, Boldore, Graveler, Gurdurr, Kadabra",
+            "search": "!favorite & !shadow & !4* & !lucky & !traded & !free-evol",
+            "tag": "free-evol",
+            "info": ""
+        },
+        {
+            "id": "3",
+            "name": "Trade: Free Evolve",
+            "title":"Free Evolve when traded",
+            "pokemon": "haunter, karrablast, machoke, phantump, pumpkaboo, Shelmet, Boldore, Graveler, Gurdurr, Kadabra",
+            "search": "!favorite & !4* & traded",
+            "tag": "evol",
+            "info": ""
+        },
+        {
+            "id": "4",
+            "name": "PVP",
+            "title":"PVP For Great Leauge",
+            "pokemon": "",
+            "search": "0-1attack & 3-4defense & 3-4-hp & cp-1500",
+            "tag": "pvp",
+            "info": ""
+        },
+        {
+            "id": "5",
+            "name": "Safe Transfer",
+            "title":"Safe Transfer",
+            "pokemon": "",
+            "search": "",
+            "tag": "",
+            "info": ""
+        },
+        {
+            "id": "6",
+            "name": "2x Transfer",
+            "title":"2x Transfer Candy",
+            "pokemon": "stuffel, bergmite, bronzor, squrtle, scatterbug, charmander, bulbasaur",
+            "search": "!favorite & !4* & !3* & !pvp & !xl & !xxl &!shiny",
+            "tag": "2x Transfer",
+            "info": ""
+        },
+    ];
+
+    let superString = "!favorite & !shiny & !3* & !4* & !lucky & !ultra beasts & !12candy & !purify & !free-evol & !evol & !pvp & !xl & !xxl & &!legendary & !mythical";
+
+    function copySearchString (id) {
+        let output = data[id]['search']
+        let pokemon = data[id]['pokemon']
+        let tag = data[id]['tag']
+
+        if(output === '' && tag === "" && pokemon === ""){
+            copyContent(superString);
+        } else if( tag.length > 0 && pokemon.length > 0 && output.length > 0){
+            copyContent( output + " & " + pokemon + " & !" + tag );
+        }
+
+    }
+
     function findNew(id){
         let output = data[id]['value']  + " & !" + data[id]['tag'];
         copyContent(output);
     }
+
     function copyTag(id){
         let output = data[id]['tag'];
         copyContent(output);
@@ -86,13 +136,13 @@
                                     <div className={"col"}>
                                         <h4>{val.title} &nbsp;
                                             <button type="button" className={"btn btn-outline-info btn-sm"} data-bs-toggle={"modal"} data-bs-target={"#" + "Modal" + val.id }>more info</button> <br/>
-                                            <small className={"text-body-secondary h6"}>Tag: {val.tag}</small>
+                                            {(val.tag === "")? "" : <small className={"text-body-secondary h6"}>Tag: {val.tag}</small> }
                                         </h4>
                                     </div>
                                     <div className="col">
                                         <div className={"d-flex p-2"}>
                                             <button className={"btn btn-dark btn"} onClick={ () => copyTag(val.id) } >Copy Tag Name</button> &nbsp;
-                                            <button className={"btn btn-danger btn-lg"} onClick={() => findNew(val.id) }>Pokemon List</button>
+                                            <button className={"btn btn-success btn-lg"} onClick={() => copySearchString(val.id) }>Copy Search String</button>
                                         </div>
                                     </div>
                                 </div>
@@ -124,12 +174,6 @@
                 <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                     <input type="checkbox" className="btn-check" id="showFavorite" autoComplete="off" />
                     <label className="btn btn-outline-primary" htmlFor="showFavorite">Hide Favorite</label>
-
-                    <input type="checkbox" className="btn-check" id="btncheck2" autoComplete="off" />
-                    <label className="btn btn-outline-primary" htmlFor="btncheck2">Checkbox 2</label>
-
-                    <input type="checkbox" className="btn-check" id="btncheck3" autoComplete="off" />
-                    <label className="btn btn-outline-primary" htmlFor="btncheck3">Checkbox 3</label>
                 </div>
             )
         }
@@ -138,7 +182,6 @@
             return(
                 <div>
                     <header> <Header /> </header>
-                    <section> <SearchOptions /> </section>
                     <section> <List /> </section>
                 </div>
             )
@@ -146,7 +189,6 @@
 
         ReactDOM.render( <HomePage />, app);
     </script>
-
 
 </div>
 
