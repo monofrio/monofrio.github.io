@@ -3,10 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Pokemon Go Tool">
+    <meta name="keywords" content="Pokemon Go">
+    <meta name="author" content="Mark Onofrio">
     <title>Pokemon Go Search Tool</title>
+    <meta>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="data.js"></script>
+    <script src="./data/data.js"></script>
+    <script src="./data/Pokemon_Raid_Hundo_CP.js"></script>
 <body>
+<!--
+TODO: Add Star piece before the end of Go Battle League
+TODO: Upcoming Event Bonuses
+TODO: Ditto Change Up
+TODO: Gearing up for PokéStop Showcases
+TODO: Current Events
+TODO: Current Raids and Perfect IV
+-->
 <script>
     let superString = "!favorite & !shiny & !3* & !4* & !lucky & !ultra beasts & !12candy & !purify & !free-evol & !evol & !pvp & !xl & !xxl & &!legendary & !mythical";
 
@@ -52,8 +65,6 @@
             /* Rejected - text failed to copy to the clipboard */
         }
     }
-
-
 </script>
 <div class="container">
     <div id="app"></div>
@@ -63,17 +74,15 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/jsx">
         const app = document.getElementById('app');
-        const title = "Pokemon Go Search Tool"
+        const title = "Pokemon Go Sidekick Tool"
 
         function Header(){
             return (
                 <header>
                     <div className="alert alert-warning" role="alert">
-                        This is still in Beta.
+                        This is still in Beta. <small >Last Updated: {appInfo.updated} - Ver: {appInfo.version}</small>
                     </div>
                     <h1>{title} </h1>
-                    <small >Last Updated: {appInfo.updated} - Ver: {appInfo.version}</small>
-
                 </header>
             )
         }
@@ -134,10 +143,112 @@
             )
         }
 
+        function EventLoop(){
+            return(
+                <div className="event event--inline">
+                    <div className="event-layout">
+                        <div className="event-image">{event.image}</div>
+                        <div className="event-details">
+                            <div className="event-name">{event.name}</div>
+                            <div className="event-dates">{event.date}</div>
+                            <div className="event-body">{event.time}</div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        function RaidLoop(){
+            // Get the current date
+            let currentDate = new Date("2023-12-16");
+            const months = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            return (
+                <div className="section-events">
+                    {
+                        eventData.map( (value,index) => (
+                            (value.eventType === "Raids" && currentDate >= new Date(value.startDate) && currentDate <= new Date(value.endDate) ) ?
+                                (<div className="event event--inline container" key={"raid-" + index}>
+                                    <div className="event-layout row">
+                                        {(!value.image) ? "" :
+                                            <div className="event-image col">
+                                                <img
+                                                    src={value.image.url}
+                                                    width="125" height="125" alt=""/>
+                                            </div>
+                                        }
+                                        <div className="event-details row">
+                                            <div className="event-name col">{value.name} / {value.raidStarLevel}</div>
+                                            <div className="event-dates col">
+                                                <strong>
+                                                    { months[(new Date( value.startDate ).getMonth())] }&nbsp;
+                                                    { (new Date(value.startDate + 'T00:00:00Z').getUTCDate()) } -
+                                                    { (new Date(value.endDate + 'T00:00:00Z').getUTCDate()) }</strong>
+                                            </div>
+                                            <div className="event-body col">
+
+
+                                                {
+                                                    Object.keys(raidCP).map( key => {
+                                                        let name = value.name;
+                                                        const raid = raidCP[key];
+                                                        const wordToRemove = "Mega";
+
+                                                        const regex = new RegExp("\\b" + wordToRemove + "\\b", "gi");
+                                                        if( value.name.includes("Mega") ){
+
+                                                            name = value.name.replace(regex, '').trim()
+                                                            console.log("Name:", name)
+                                                        }
+
+                                                        return (raid.name === name) ? ( <h2>{raid.hundoCP} / {raid.hundoWeatherCP}</h2>) : ""
+                                                    })
+                                                }
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>)
+                                : ""
+                        ))
+                    }
+                </div>
+            )
+        }
+
+        function EventCalendar(){
+            return(
+                <div className="container" >
+                    <div className="month heading">December</div>
+                    <div className="sections">
+                        <div className="section">
+                            <div className="section-title heading">Events</div>
+                            <div className="section-events">
+                                <EventLoop />
+                            </div>
+                        </div>
+                        <div className="section">
+                            <div className="section-title heading">Raids</div>
+
+                                <RaidLoop />
+
+                            <div className="section-footer">Shadow Zapdos will appear in Shadow Raids during weekends in
+                                December!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        )
+        }
+
         function HomePage(){
             return(
                 <div>
                     <header> <Header /> </header>
+                    <section><RaidLoop /></section>
                     <section> <List /> </section>
                 </div>
             )
