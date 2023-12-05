@@ -1,6 +1,6 @@
 const appInfo = {
-    "version": "0.2.0",
-    "updated": "December 4, 2023"
+    "version": "0.2.2",
+    "updated": "December 5, 2023"
 }
 const data = [
     {

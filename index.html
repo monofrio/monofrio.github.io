@@ -73,16 +73,26 @@
 // TODO: Ditto Change Up
 
 
-
+        function Alerts(){
+            return (
+                <div className="alert alert-warning" role="alert">
+                    <strong>This is still in Beta.</strong> <br/>
+                </div>
+            )
+        }
 
         function Header(){
             return (
                 <header>
-                    <div className="alert alert-warning" role="alert">
-                        This is still in Beta. <small >Last Updated: {appInfo.updated} - Ver: {appInfo.version}</small>
-                    </div>
+                    <Alerts />
                     <h1>{title} </h1>
                 </header>
+            )
+        }
+
+        function Footer(){
+            return (
+                <small>Last Updated: {appInfo.updated} - Ver: {appInfo.version}</small>
             )
         }
 
@@ -142,22 +152,83 @@
             )
         }
 
-        function EventLoop(){
-            return(
-                <div className="event event--inline">
-                    <div className="event-layout">
-                        <div className="event-image">{event.image}</div>
-                        <div className="event-details">
-                            <div className="event-name">{event.name}</div>
-                            <div className="event-dates">{event.date}</div>
-                            <div className="event-body">{event.time}</div>
+
+        function RaidCards ({currentDate, months}){
+            return (
+                eventData.map( ( value, index) => (
+                    (value.eventType === "Raids" && currentDate >= new Date(value.startDate) && currentDate <= new Date(value.endDate) ) ?
+                        <div className="event event--inline container card" key={"raid-" + index}>
+                    <div className="event-layout row card-body">
+                        {(!value.image) ? "" :
+                            <div className="event-image col">
+                                <img
+                                    src={value.image.url}
+                                    width="125" height="125" alt=""/>
+                            </div>
+                        }
+                        <div className="event-details col">
+                            <div className="raid-event-info">
+                                <div>
+                                    <span className={"h3"}>{value.name}</span><br />
+                                    <small className={"h6"}>{value.raidStarLevel} Raid</small>
+                                    <p>
+                                        { ( new Date( value.startDate ).getMonth()  !==  currentDate.getMonth() ) ? months[( currentDate.getMonth() )] : months[(new Date( value.startDate ).getMonth())] }&nbsp;
+                                        { ( new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() ) } -
+                                        { ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() ) }
+                                    </p>
+                                </div>
+
+                                {
+                                    Object.keys(raidCP).map( key => {
+                                        let name = value.name;
+                                        const raid = raidCP[key];
+                                        const wordToRemove = "Mega";
+
+                                        /** check if Mega is in the name and remove it to find the correct name look up*/
+                                        const regex = new RegExp("\\b" + wordToRemove + "\\b", "gi");
+                                        if( value.name.includes("Mega") ){
+                                            name = value.name.replace(regex, '').trim()
+                                        }
+                                        /** Show perfect IV for catching after a raid */
+                                        return (raid.name === name) ? ( <div>{raid.hundoCP} / {raid.hundoWeatherCP} <br/> <span style={ {fontSize: "0.7rem"} } >100% IV / Weather Boosted</span></div>) : ""
+                                    })
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div> : ""
+                ))
             )
         }
 
-        function RaidLoop(){
+        function EventCards ({ currentDate, months}){
+            return(
+                eventData.map( ( value, index) => (
+                    (
+                        value.eventType === "Events" &&
+                        currentDate >= new Date(value.startDate) &&
+                        currentDate <= new Date(value.endDate)
+                    ) ?
+                        <div className="event event--inline container card" key={"event-" + index}>
+                            <div className="event-layout row card-body">
+                                <div className="event-details col">
+                                    <div className="raid-event-info">
+                                        <span className={"h3"}>{value.name}</span><br />
+                                        <p>
+                                            { ( new Date( value.startDate ).getMonth()  !==  currentDate.getMonth() ) ? months[( currentDate.getMonth() )] : months[(new Date( value.startDate ).getMonth())] }&nbsp;
+                                            { ( new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() ) } -
+                                            { ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() ) }
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        : ""
+                ))
+            )
+        }
+
+        function Events(){
             // Get the current date
             let currentDate = new Date();
             const months = [
@@ -166,56 +237,10 @@
             ];
 
             return (
-                <div className="section-events">
-                    {
-                        eventData.map( (value,index) => (
-                            (value.eventType === "Raids" && currentDate >= new Date(value.startDate) && currentDate <= new Date(value.endDate) ) ?
-                                (<div className="event event--inline container" key={"raid-" + index}>
-                                    <div className="event-layout row">
-                                        {(!value.image) ? "" :
-                                            <div className="event-image col">
-                                                <img
-                                                    src={value.image.url}
-                                                    width="125" height="125" alt=""/>
-                                            </div>
-                                        }
-                                        <div className="event-details row">
-                                            <div className="event-name col">{value.name} / {value.raidStarLevel}</div>
-                                            <div className="event-dates col">
-                                                <strong>
-                                                    { ( new Date( value.startDate ).getMonth()  !==  currentDate.getMonth() ) ? months[( currentDate.getMonth() )] : months[(new Date( value.startDate ).getMonth())] }&nbsp;
-                                                    { ( new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() ) } -
-                                                    { ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() ) }
-                                                </strong>
-                                            </div>
-                                            <div className="event-body col">
-
-
-                                                {
-                                                    Object.keys(raidCP).map( key => {
-                                                        let name = value.name;
-                                                        const raid = raidCP[key];
-                                                        const wordToRemove = "Mega";
-
-                                                        const regex = new RegExp("\\b" + wordToRemove + "\\b", "gi");
-                                                        if( value.name.includes("Mega") ){
-
-                                                            name = value.name.replace(regex, '').trim()
-                                                            console.log("Name:", name)
-                                                        }
-
-                                                        return (raid.name === name) ? ( <h2>{raid.hundoCP} / {raid.hundoWeatherCP}</h2>) : ""
-                                                    })
-                                                }
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>)
-                                : ""
-                        ))
-                    }
-                </div>
+                <section className="section-events">
+                    <RaidCards currentDate={currentDate} months={months} />
+                    <EventCards currentDate={currentDate} months={months} />
+                </section>
             )
         }
 
@@ -251,8 +276,33 @@
             return(
                 <div>
                     <header> <Header /> </header>
-                    <section><RaidLoop /></section>
-                    <section> <List /> </section>
+                    <div className="accordion" id="accordionExample">
+                        <div className="accordion-item">
+                            <h2 className="accordion-header">
+                                <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Current Raids and Events
+                                </button>
+                            </h2>
+                            <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                <div className="accordion-body">
+                                    <Events />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="accordion-item">
+                            <h2 className="accordion-header">
+                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Pokemon Tag Manager
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div className="accordion-body">
+                                    <List />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <Footer />
                 </div>
             )
         }
