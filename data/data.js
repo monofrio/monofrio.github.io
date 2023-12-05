@@ -1,7 +1,4 @@
-const appInfo = {
-    "version": "0.2.2",
-    "updated": "December 5, 2023"
-}
+
 const data = [
     {
         "id": "0",
