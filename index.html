@@ -12,14 +12,7 @@
     <script src="./data/data.js"></script>
     <script src="./data/Pokemon_Raid_Hundo_CP.js"></script>
 <body>
-<!--
-TODO: Add Star piece before the end of Go Battle League
-TODO: Upcoming Event Bonuses
-TODO: Ditto Change Up
-TODO: Gearing up for PokéStop Showcases
-TODO: Current Events
-TODO: Current Raids and Perfect IV
--->
+
 <script>
     let superString = "!favorite & !shiny & !3* & !4* & !lucky & !ultra beasts & !12candy & !purify & !free-evol & !evol & !pvp & !xl & !xxl & &!legendary & !mythical";
 
@@ -75,6 +68,12 @@ TODO: Current Raids and Perfect IV
     <script type="text/jsx">
         const app = document.getElementById('app');
         const title = "Pokemon Go Sidekick Tool"
+
+// TODO: Add Star piece before the end of Go Battle League
+// TODO: Ditto Change Up
+
+
+
 
         function Header(){
             return (
@@ -184,9 +183,10 @@ TODO: Current Raids and Perfect IV
                                             <div className="event-name col">{value.name} / {value.raidStarLevel}</div>
                                             <div className="event-dates col">
                                                 <strong>
-                                                    { months[(new Date( value.startDate ).getMonth())] }&nbsp;
-                                                    { (new Date(value.startDate + 'T00:00:00Z').getUTCDate()) } -
-                                                    { (new Date(value.endDate + 'T00:00:00Z').getUTCDate()) }</strong>
+                                                    { ( new Date( value.startDate ).getMonth()  !==  currentDate.getMonth() ) ? months[( currentDate.getMonth() )] : months[(new Date( value.startDate ).getMonth())] }&nbsp;
+                                                    { ( new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() ) } -
+                                                    { ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() ) }
+                                                </strong>
                                             </div>
                                             <div className="event-body col">
 
@@ -219,6 +219,9 @@ TODO: Current Raids and Perfect IV
             )
         }
 
+        // TODO: Upcoming Event Bonuses
+        // TODO: Current Events
+        // TODO: Gearing up for PokéStop Showcases
         function EventCalendar(){
             return(
                 <div className="container" >
