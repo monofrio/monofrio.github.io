@@ -96,7 +96,7 @@
             )
         }
 
-        function List(){
+        function SearchList(){
             return(
                     <ul className="list-group">
                         {data.map( (val) => (
@@ -158,45 +158,45 @@
                 eventData.map( ( value, index) => (
                     (value.eventType === "Raids" && currentDate >= new Date(value.startDate) && currentDate <= new Date(value.endDate) ) ?
                         <div className="event event--inline container card" key={"raid-" + index}>
-                    <div className="event-layout row card-body">
-                        {(!value.image) ? "" :
-                            <div className="event-image col">
-                                <img
-                                    src={value.image.url}
-                                    width="125" height="125" alt=""/>
-                            </div>
-                        }
-                        <div className="event-details col">
-                            <div className="raid-event-info">
-                                <div>
-                                    <span className={"h3"}>{value.name}</span><br />
-                                    <small className={"h6"}>{value.raidStarLevel} Raid</small>
-                                    <p>
-                                        { ( new Date( value.startDate ).getMonth()  !==  currentDate.getMonth() ) ? months[( currentDate.getMonth() )] : months[(new Date( value.startDate ).getMonth())] }&nbsp;
-                                        { ( new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() ) } -
-                                        { ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() ) }
-                                    </p>
-                                </div>
-
-                                {
-                                    Object.keys(raidCP).map( key => {
-                                        let name = value.name;
-                                        const raid = raidCP[key];
-                                        const wordToRemove = "Mega";
-
-                                        /** check if Mega is in the name and remove it to find the correct name look up*/
-                                        const regex = new RegExp("\\b" + wordToRemove + "\\b", "gi");
-                                        if( value.name.includes("Mega") ){
-                                            name = value.name.replace(regex, '').trim()
-                                        }
-                                        /** Show perfect IV for catching after a raid */
-                                        return (raid.name === name) ? ( <div>{raid.hundoCP} / {raid.hundoWeatherCP} <br/> <span style={ {fontSize: "0.7rem"} } >100% IV / Weather Boosted</span></div>) : ""
-                                    })
+                            <div className="event-layout row card-body">
+                                {(!value.image) ? "" :
+                                    <div className="event-image col">
+                                        <img
+                                            src={value.image.url}
+                                            width="125" height="125" alt=""/>
+                                    </div>
                                 }
+                                <div className="event-details col">
+                                    <div className="raid-event-info">
+                                        <div>
+                                            <span className={"h3"}>{value.name}</span><br />
+                                            <small className={"h6"}>{value.raidStarLevel} Raid</small>
+                                            <p>
+                                                { ( new Date( value.startDate ).getMonth()  !==  currentDate.getMonth() ) ? months[( currentDate.getMonth() )] : months[(new Date( value.startDate ).getMonth())] }&nbsp;
+                                                { ( new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() ) } -
+                                                { ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() ) }
+                                            </p>
+                                        </div>
+
+                                        {
+                                            Object.keys(raidCP).map( key => {
+                                                let name = value.name;
+                                                const raid = raidCP[key];
+                                                const wordToRemove = "Mega";
+
+                                                /** check if Mega is in the name and remove it to find the correct name look up*/
+                                                const regex = new RegExp("\\b" + wordToRemove + "\\b", "gi");
+                                                if( value.name.includes("Mega") ){
+                                                    name = value.name.replace(regex, '').trim()
+                                                }
+                                                /** Show perfect IV for catching after a raid */
+                                                return (raid.name === name) ? ( <div key={"mega"+index}>{raid.hundoCP} / {raid.hundoWeatherCP} <br/> <span style={ {fontSize: "0.7rem"} } >100% IV / Weather Boosted</span></div>) : ""
+                                            })
+                                        }
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div> : ""
+                        </div> : ""
                 ))
             )
         }
@@ -204,21 +204,131 @@
         function EventCards ({ currentDate, months}){
             return(
                 eventData.map( ( value, index) => (
+
                     (
-                        value.eventType === "Events" &&
-                        currentDate >= new Date(value.startDate) &&
-                        currentDate <= new Date(value.endDate)
+                        ( value.eventType === "Events" && value.bodyLines === undefined ) &&
+                        (currentDate >= new Date(value.startDate) && currentDate <= new Date(value.endDate))
+                        // && ( new Date().getDate() === ( new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() ) )
                     ) ?
                         <div className="event event--inline container card" key={"event-" + index}>
                             <div className="event-layout row card-body">
+                                {(!value.image) ? "" :
+                                    <div className="event-image col">
+                                        <img
+                                            src={value.image.url}
+                                            width="125" height="125" alt=""/>
+                                    </div>
+                                }
                                 <div className="event-details col">
                                     <div className="raid-event-info">
-                                        <span className={"h3"}>{value.name}</span><br />
+
+                                        <span className={"h3"}>{value.name}</span>
+                                        { value.bodyLines !== undefined? (<span> - {value.bodyLines[0]} </span>) : "" }
+                                        <br />
+
                                         <p>
                                             { ( new Date( value.startDate ).getMonth()  !==  currentDate.getMonth() ) ? months[( currentDate.getMonth() )] : months[(new Date( value.startDate ).getMonth())] }&nbsp;
-                                            { ( new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() ) } -
-                                            { ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() ) }
+                                            { ( new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() ) }
+                                            { ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() !==  new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() )?
+                                              " - " + ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() )
+                                                : ""
+                                            }
+                                            <br />
+                                            {( value.bodyLines !== undefined ? (<span>{value.bodyLines[1]} </span>) : "")}
+                                            {( value.body !== undefined) ? (<span>{value.body}</span>) : ""}
                                         </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        : ""
+                ))
+            )
+        }
+
+
+        function getDate(){
+            let output,date, month, day;
+            function isValidDateFormat(input) {
+                // Regular expression for 'YYYY-MM-DD' pattern
+                const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+
+                // Test the input against the pattern
+                return datePattern.test(input);
+            }
+
+            if( arguments[0].toLowerCase() === "today"  && arguments.length === 1 ){
+                output = new Date().getUTCDate()
+            }
+            if( arguments[0].toLowerCase() === "month" && arguments.length === 1 ){
+                output = new Date().getUTCMonth()
+            }
+            if( isValidDateFormat(arguments[0]) ){
+                output = new Date(arguments[0]).getUTCDate()
+            }
+            if( arguments.length > 1 ){
+
+                Object.keys(arguments).map( index => {
+                    if ( isValidDateFormat(arguments[index]) ) {
+                         date = index
+                    }
+                    if ( arguments[index] === 'month'){
+                        month = index
+                    }
+                    if ( arguments[index] === 'day'){
+                        day = index
+                    }
+                })
+
+                if( month !== undefined ){
+                    output = new Date( arguments[date] ).getUTCMonth()
+                }
+                if( day !== undefined){
+                    output = new Date( arguments[date] ).getUTCDate()
+                }
+
+            }
+            console.log(output)
+            return output
+        }
+
+        function SpotlightHourCard ({months, currentDate }){
+
+            return(
+                eventData.map( (value, index) => (
+                         value.eventType === "Events" && value.bodyLines !== undefined &&
+                             getDate("today") <= getDate(value.startDate, "day") &&
+                             getDate("today") >= getDate(value.endDate, "day")
+                     ?
+                        <div className="event event--inline container card" key={"spotlight-" + index}>
+                            <div className="event-layout row card-body">
+                                {(!value.image) ? "" :
+                                    <div className="event-image col">
+                                        <img
+                                            src={value.image.url}
+                                            width="125" height="125" alt=""/>
+                                    </div>
+                                }
+                                <div className="event-details col">
+                                    <div className="raid-event-info">
+
+                                        <span className={"h3"}>{value.name}</span>
+                                        { value.bodyLines !== undefined? (<span> - {value.bodyLines[0]} </span>) : "" }
+                                        <br />
+
+                                        <p>
+                                            { ( new Date( value.startDate ).getMonth()  !==  new Date().getMonth() ) ? months[( new Date().getMonth() )] : months[(new Date( value.startDate ).getMonth())] }&nbsp;
+                                            { ( new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() ) }
+                                            { ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() !==  new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() )?
+                                                " - " + ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() )
+                                                : ""
+                                            }
+                                            <br />
+                                            {( value.bodyLines !== undefined ? (<span>{value.bodyLines[1]} </span>) : "")}
+                                            {( value.body !== undefined) ? (<span>{value.body}</span>) : ""}
+                                        </p>
+
                                     </div>
                                 </div>
                             </div>
@@ -231,6 +341,7 @@
         function Events(){
             // Get the current date
             let currentDate = new Date();
+
             const months = [
                 "January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"
@@ -238,8 +349,10 @@
 
             return (
                 <section className="section-events">
+                    <SpotlightHourCard currentDate={currentDate} months={months} />
                     <RaidCards currentDate={currentDate} months={months} />
                     <EventCards currentDate={currentDate} months={months} />
+
                 </section>
             )
         }
@@ -297,7 +410,7 @@
                             </h2>
                             <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                 <div className="accordion-body">
-                                    <List />
+                                    <SearchList />
                                 </div>
                             </div>
                         </div>
