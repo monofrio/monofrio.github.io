@@ -100,6 +100,50 @@
             )
         }
 
+        function getDate(){
+            let output,date, month, day;
+            function isValidDateFormat(input) {
+                // Regular expression for 'YYYY-MM-DD' pattern
+                const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+
+                // Test the input against the pattern
+                return datePattern.test(input);
+            }
+
+            if( arguments[0].toLowerCase() === "today"  && arguments.length === 1 ){
+                output = new Date().getUTCDate()
+            }
+            if( arguments[0].toLowerCase() === "month" && arguments.length === 1 ){
+                output = new Date().getUTCMonth()
+            }
+            if( isValidDateFormat(arguments[0]) ){
+                output = new Date(arguments[0]).getUTCDate()
+            }
+            if( arguments.length > 1 ){
+
+                Object.keys(arguments).map( index => {
+                    if ( isValidDateFormat(arguments[index]) ) {
+                        date = index
+                    }
+                    if ( arguments[index] === 'month'){
+                        month = index
+                    }
+                    if ( arguments[index] === 'day'){
+                        day = index
+                    }
+                })
+
+                if( month !== undefined ){
+                    output = new Date( arguments[date] ).getUTCMonth()
+                }
+                if( day !== undefined){
+                    output = new Date( arguments[date] ).getUTCDate()
+                }
+
+            }
+            return output
+        }
+
         function SearchList(){
             return(
                     <ul className="list-group">
@@ -157,10 +201,13 @@
         }
 
 
-        function RaidCards ({currentDate, months}){
+        function RaidCards ({months}){
             return (
+
                 eventData.map( ( value, index) => (
-                    (value.eventType === "Raids" && currentDate >= new Date(value.startDate) && currentDate <= new Date(value.endDate) ) ?
+                    (value.eventType === "Raids"
+                        && getDate('today') >= getDate(value.startDate)
+                        && getDate('today') <= getDate(value.endDate) ) ?
                         <div className="event event--inline container card" key={"raid-" + index}>
                             <div className="event-layout row card-body">
                                 {(!value.image) ? "" :
@@ -176,9 +223,9 @@
                                             <span className={"h3"}>{value.name}</span><br />
                                             <small className={"h6"}>{value.raidStarLevel} Raid</small>
                                             <p>
-                                                { ( new Date( value.startDate ).getMonth()  !==  currentDate.getMonth() ) ? months[( currentDate.getMonth() )] : months[(new Date( value.startDate ).getMonth())] }&nbsp;
-                                                { ( new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() ) } -
-                                                { ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() ) }
+                                                { getDate( value.startDate, 'month' )  !==  getDate("day")  ? months[ getDate('month') ] : months[ getDate( value.startDate, "month" ) ] }&nbsp;
+                                                { getDate(value.startDate ) } -
+                                                { getDate(value.endDate ) }
                                             </p>
                                         </div>
 
@@ -208,10 +255,9 @@
         function EventCards ({ currentDate, months}){
             return(
                 eventData.map( ( value, index) => (
-
                     (
                         ( value.eventType === "Events" && value.bodyLines === undefined ) &&
-                        (currentDate >= new Date(value.startDate) && currentDate <= new Date(value.endDate))
+                        ( getDate('today') >= getDate(value.startDate) && getDate('today') <= getDate(value.endDate))
                         // && ( new Date().getDate() === ( new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() ) )
                     ) ?
                         <div className="event event--inline container card" key={"event-" + index}>
@@ -227,16 +273,15 @@
                                     <div className="raid-event-info">
 
                                         <span className={"h3"}>{value.name}</span>
-                                        { value.bodyLines !== undefined? (<span> - {value.bodyLines[0]} </span>) : "" }
+                                        { value.bodyLines !== undefined? (<span> - {value.bodyLines[0]} </span>) : (<><br/><span>- Raid Hour </span></>)  }
                                         <br />
 
                                         <p>
-                                            { ( new Date( value.startDate ).getMonth()  !==  currentDate.getMonth() ) ? months[( currentDate.getMonth() )] : months[(new Date( value.startDate ).getMonth())] }&nbsp;
-                                            { ( new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() ) }
-                                            { ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() !==  new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() )?
-                                              " - " + ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() )
-                                                : ""
-                                            }
+                                            { getDate( value.startDate, "month" ) !== getDate("month") ?
+                                                months[ getDate("month")] :
+                                                months[ getDate( value.startDate, "month") ] } &nbsp;
+                                            { getDate(value.startDate) }
+                                            { getDate(value.endDate) !== getDate(value.startDate) ? " - " + getDate(value.endDate ) : "" }
                                             <br />
                                             {( value.bodyLines !== undefined ? (<span>{value.bodyLines[1]} </span>) : "")}
                                             {( value.body !== undefined) ? (<span>{value.body}</span>) : ""}
@@ -251,55 +296,10 @@
             )
         }
 
-
-        function getDate(){
-            let output,date, month, day;
-            function isValidDateFormat(input) {
-                // Regular expression for 'YYYY-MM-DD' pattern
-                const datePattern = /^\d{4}-\d{2}-\d{2}$/;
-
-                // Test the input against the pattern
-                return datePattern.test(input);
-            }
-
-            if( arguments[0].toLowerCase() === "today"  && arguments.length === 1 ){
-                output = new Date().getUTCDate()
-            }
-            if( arguments[0].toLowerCase() === "month" && arguments.length === 1 ){
-                output = new Date().getUTCMonth()
-            }
-            if( isValidDateFormat(arguments[0]) ){
-                output = new Date(arguments[0]).getUTCDate()
-            }
-            if( arguments.length > 1 ){
-
-                Object.keys(arguments).map( index => {
-                    if ( isValidDateFormat(arguments[index]) ) {
-                         date = index
-                    }
-                    if ( arguments[index] === 'month'){
-                        month = index
-                    }
-                    if ( arguments[index] === 'day'){
-                        day = index
-                    }
-                })
-
-                if( month !== undefined ){
-                    output = new Date( arguments[date] ).getUTCMonth()
-                }
-                if( day !== undefined){
-                    output = new Date( arguments[date] ).getUTCDate()
-                }
-
-            }
-            console.log(output)
-            return output
-        }
-
-        function SpotlightHourCard ({months, currentDate }){
+        function SpotlightHourCard ({months }){
 
             return(
+
                 eventData.map( (value, index) => (
                          value.eventType === "Events" && value.bodyLines !== undefined &&
                              getDate("today") <= getDate(value.startDate, "day") &&
@@ -322,10 +322,10 @@
                                         <br />
 
                                         <p>
-                                            { ( new Date( value.startDate ).getMonth()  !==  new Date().getMonth() ) ? months[( new Date().getMonth() )] : months[(new Date( value.startDate ).getMonth())] }&nbsp;
-                                            { ( new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() ) }
-                                            { ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() !==  new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() )?
-                                                " - " + ( new Date(value.endDate + 'T00:00:00Z' ).getUTCDate() )
+                                            { ( getDate("month", value.startDate )  !==  getDate("month") ) ? months[ getDate("month") ] : months[getDate("month", value.startDate)] }&nbsp;
+                                            { getDate() }
+                                            { ( getDate(value.endDate) !==  getDate(value.startDate) )?
+                                                " - " + getDate(value.endDate)
                                                 : ""
                                             }
                                             <br />
@@ -353,8 +353,11 @@
 
             return (
                 <section className="section-events">
+
                     <SpotlightHourCard currentDate={currentDate} months={months} />
+                    <h3>5 Star Raids</h3>
                     <RaidCards currentDate={currentDate} months={months} />
+                    <h3>Events</h3>
                     <EventCards currentDate={currentDate} months={months} />
 
                 </section>
@@ -391,7 +394,7 @@
 
         function HomePage(){
             return(
-                <div>
+                <>
                     <header> <Header /> </header>
                     <div className="accordion" id="accordionExample">
                         <div className="accordion-item">
@@ -419,8 +422,8 @@
                             </div>
                         </div>
                     </div>
-                    <Footer />
-                </div>
+                    <footer><Footer /></footer>
+                </>
             )
         }
 
