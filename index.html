@@ -76,7 +76,6 @@
 // TODO: Add Star piece before the end of Go Battle League
 // TODO: Ditto Change Up
 
-
         function Alerts(){
             return (
                 <div className="alert alert-warning" role="alert">
@@ -100,8 +99,9 @@
             )
         }
 
-        function getDate(){
-            let output,date, month, day;
+        function getDate() {
+            let output, date, today, month, day;
+
             function isValidDateFormat(input) {
                 // Regular expression for 'YYYY-MM-DD' pattern
                 const datePattern = /^\d{4}-\d{2}-\d{2}$/;
@@ -110,38 +110,75 @@
                 return datePattern.test(input);
             }
 
-            if( arguments[0].toLowerCase() === "today"  && arguments.length === 1 ){
-                output = new Date().getUTCDate()
-            }
-            if( arguments[0].toLowerCase() === "month" && arguments.length === 1 ){
-                output = new Date().getUTCMonth()
-            }
-            if( isValidDateFormat(arguments[0]) ){
-                output = new Date(arguments[0]).getUTCDate()
-            }
-            if( arguments.length > 1 ){
+            if (arguments.length === 0) {
+                output = new Date();
+            } else if (arguments.length === 1) {
+                const arg = arguments[0].toLowerCase();
 
-                Object.keys(arguments).map( index => {
-                    if ( isValidDateFormat(arguments[index]) ) {
-                        date = index
-                    }
-                    if ( arguments[index] === 'month'){
-                        month = index
-                    }
-                    if ( arguments[index] === 'day'){
-                        day = index
-                    }
-                })
-
-                if( month !== undefined ){
-                    output = new Date( arguments[date] ).getUTCMonth()
+                if (isValidDateFormat(arg)) {
+                    output = new Date(arg + "T00:00:00");
+                } else if (arg === "today") {
+                    output = new Date();
+                    output.setHours(0, 0, 0, 0);
+                } else if (arg === "month") {
+                    output = new Date().getUTCMonth();
+                } else if (arg === "day") {
+                    output = new Date().getDate();
+                } else if (arg === "year") {
+                    output = new Date().getUTCFullYear();
                 }
-                if( day !== undefined){
-                    output = new Date( arguments[date] ).getUTCDate()
+            } else {
+                // If more than one argument is provided, check for specific cases
+                for (let index = 0; index < arguments.length; index++) {
+                    const arg = arguments[index].toLowerCase();
+
+                    if (isValidDateFormat(arg)) {
+                        date = index;
+                    } else if (arg === "today") {
+                        today = index;
+                        console.log("Invalid Date")
+                    } else if (arg === "month") {
+                        month = index;
+                    } else if (arg === "day") {
+                        day = index;
+                    }
                 }
 
+                if (today !== undefined) {
+                    output = new Date(arguments[today] + "T00:00:00");
+                } else if (month !== undefined) {
+                    output = new Date(arguments[date]).getUTCMonth();
+                } else if (day !== undefined) {
+                    output = new Date(arguments[date]).getUTCDate();
+                }
             }
-            return output
+
+            return output;
+        }
+
+        function checkEventTime(event) {
+            if (!event || !event.body || !event.startDate || !event.endDate || !event.eventType) {
+                // If event, event body, startDate, endDate, or eventType is not provided, return false
+                return false;
+            }
+
+            // Check if eventType is "Events"
+            if (event.eventType !== "Events") {
+                return false;
+            }
+
+            // Extract start and end times from the event body
+            const [startTimeStr, endTimeStr] = event.body.split("–").map(str => str.trim());
+
+            // Create date objects for current time, start time, end time, start date, and end date
+            const currentDate = new Date();
+            const startTime = new Date(currentDate.toDateString() + " " + startTimeStr);
+            const endTime = new Date(currentDate.toDateString() + " " + endTimeStr);
+            const startDate = new Date(event.startDate + 'T00:00:00');
+            const endDate = new Date(event.endDate + 'T23:59:59'); // Set to end of the day
+
+            // Check if the current time is between start and end times and if the current date is within the start and end date
+            return currentDate >= startTime && currentDate <= endTime && currentDate >= startDate && currentDate <= endDate;
         }
 
         function SearchList(){
@@ -169,15 +206,6 @@
             )
         }
 
-        function SearchOptions(){
-            return (
-                <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                    <input type="checkbox" className="btn-check" id="showFavorite" autoComplete="off" />
-                    <label className="btn btn-outline-primary" htmlFor="showFavorite">Hide Favorite</label>
-                </div>
-            )
-        }
-
         function Modal( {val} ){
             return(
                 <div className="modal fade" id={"Modal" + val.id} tabIndex="-1" aria-labelledby={val.id + "ModalLabel"} aria-hidden="true">
@@ -199,7 +227,6 @@
 
             )
         }
-
 
         function RaidCards ({months}){
             return (
@@ -223,9 +250,8 @@
                                             <span className={"h3"}>{value.name}</span><br />
                                             <small className={"h6"}>{value.raidStarLevel} Raid</small>
                                             <p>
-                                                { getDate( value.startDate, 'month' )  !==  getDate("day")  ? months[ getDate('month') ] : months[ getDate( value.startDate, "month" ) ] }&nbsp;
-                                                { getDate(value.startDate ) } -
-                                                { getDate(value.endDate ) }
+                                                <span>{months[getDate(value.startDate, "month")]}</span>
+                                                <span> {getDate("day", value.startDate)}{(value.startDate !== value.endDate)? "-" + getDate(value.endDate, "day") : ""} </span>
                                             </p>
                                         </div>
 
@@ -241,7 +267,11 @@
                                                     name = value.name.replace(regex, '').trim()
                                                 }
                                                 /** Show perfect IV for catching after a raid */
-                                                return (raid.name === name) ? ( <div key={"mega"+index}>{raid.hundoCP} / {raid.hundoWeatherCP} <br/> <span style={ {fontSize: "0.7rem"} } >100% IV / Weather Boosted</span></div>) : ""
+                                                return (raid.name === name) ? (
+                                                    <div key={"mega"+index}>
+                                                        {raid.hundoCP} / {raid.hundoWeatherCP} <br/>
+                                                        <span style={ {fontSize: "0.7rem"} } >100% IV / Weather Boosted</span>
+                                                    </div> ) : ""
                                             })
                                         }
                                     </div>
@@ -252,13 +282,12 @@
             )
         }
 
-        function EventCards ({ currentDate, months}){
+        function EventCards ({months}){
             return(
                 eventData.map( ( value, index) => (
                     (
-                        ( value.eventType === "Events" && value.bodyLines === undefined ) &&
-                        ( getDate('today') >= getDate(value.startDate) && getDate('today') <= getDate(value.endDate))
-                        // && ( new Date().getDate() === ( new Date(value.startDate + 'T00:00:00Z' ).getUTCDate() ) )
+                        ( value.eventType === "Events" )
+                        && ( getDate('today') >= getDate(value.startDate) && getDate('today') <= getDate(value.endDate))
                     ) ?
                         <div className="event event--inline container card" key={"event-" + index}>
                             <div className="event-layout row card-body">
@@ -271,22 +300,12 @@
                                 }
                                 <div className="event-details col">
                                     <div className="raid-event-info">
-
-                                        <span className={"h3"}>{value.name}</span>
-                                        { value.bodyLines !== undefined? (<span> - {value.bodyLines[0]} </span>) : (<><br/><span>- Raid Hour </span></>)  }
-                                        <br />
-
-                                        <p>
-                                            { getDate( value.startDate, "month" ) !== getDate("month") ?
-                                                months[ getDate("month")] :
-                                                months[ getDate( value.startDate, "month") ] } &nbsp;
-                                            { getDate(value.startDate) }
-                                            { getDate(value.endDate) !== getDate(value.startDate) ? " - " + getDate(value.endDate ) : "" }
-                                            <br />
-                                            {( value.bodyLines !== undefined ? (<span>{value.bodyLines[1]} </span>) : "")}
-                                            {( value.body !== undefined) ? (<span>{value.body}</span>) : ""}
-                                        </p>
-
+                                        <span className={"h3"}>{value.name}</span><br/>
+                                        <span>{months[getDate(value.startDate, "month")]}</span>
+                                        <span> {getDate("day", value.startDate)}{(value.startDate !== value.endDate)? "-" + getDate(value.endDate, "day") : ""} </span>
+                                        <br/>
+                                        <span>{ (value.body !== undefined)? value.body : ""}</span><br />
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -296,7 +315,7 @@
             )
         }
 
-        function SpotlightHourCard ({months }){
+        function SpotlightHourCard ({months}){
 
             return(
 
@@ -343,9 +362,6 @@
         }
 
         function Events(){
-            // Get the current date
-            let currentDate = new Date();
-
             const months = [
                 "January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"
@@ -354,11 +370,14 @@
             return (
                 <section className="section-events">
 
-                    <SpotlightHourCard currentDate={currentDate} months={months} />
-                    <h3>5 Star Raids</h3>
-                    <RaidCards currentDate={currentDate} months={months} />
+                    <h3>Raids</h3>
+                    <RaidCards months={months} />
                     <h3>Events</h3>
-                    <EventCards currentDate={currentDate} months={months} />
+                    <EventCards months={months} />
+                    <h3>Spotlight Hour</h3>
+                    <SpotlightHourCard months={months} />
+
+
 
                 </section>
             )
@@ -367,30 +386,6 @@
         // TODO: Upcoming Event Bonuses
         // TODO: Current Events
         // TODO: Gearing up for PokéStop Showcases
-        function EventCalendar(){
-            return(
-                <div className="container" >
-                    <div className="month heading">December</div>
-                    <div className="sections">
-                        <div className="section">
-                            <div className="section-title heading">Events</div>
-                            <div className="section-events">
-                                <EventLoop />
-                            </div>
-                        </div>
-                        <div className="section">
-                            <div className="section-title heading">Raids</div>
-
-                                <RaidLoop />
-
-                            <div className="section-footer">Shadow Zapdos will appear in Shadow Raids during weekends in
-                                December!
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        )
-        }
 
         function HomePage(){
             return(
