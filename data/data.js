@@ -50,7 +50,7 @@ const data = [
         "name": "Safe Transfer",
         "title": "Safe Transfer",
         "pokemon": "",
-        "search": "!favorite&!shadow&!shiny&!xxl&!xl&!ultra beasts&!12candy&!free-evol&0*&cp-200&!shadow&!pvp&!purify&!2x Transfer",
+        "search": "!favorite & !shadow & !shiny & !xxl &!xl & !ultra beasts & !12candy & !free-evol & 0* & !pvp & !purify & !2x Transfer",
         "tag": "",
         "info": ""
     },
