@@ -41,7 +41,7 @@ const data = [
         "name": "PVP",
         "title": "PVP For Great Leauge",
         "pokemon": "",
-        "search": "0-1attack & 3-4defense & 3-4-hp & cp-1500",
+        "search": "0-1attack&3-4defense&3-4-hp&cp-1500",
         "tag": "pvp",
         "info": ""
     },
@@ -50,7 +50,7 @@ const data = [
         "name": "Safe Transfer",
         "title": "Safe Transfer",
         "pokemon": "",
-        "search": "",
+        "search": "!favorite&!shadow&!shiny&!xxl&!xl&!ultra beasts&!12candy&!free-evol&0*&cp-200&!shadow&!pvp&!purify&!2x Transfer",
         "tag": "",
         "info": ""
     },

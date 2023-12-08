@@ -100,7 +100,7 @@
         }
 
         function getDate() {
-            let output, date, today, month, day;
+            let output, date, today, month, day, arg;
 
             function isValidDateFormat(input) {
                 // Regular expression for 'YYYY-MM-DD' pattern
@@ -110,10 +110,19 @@
                 return datePattern.test(input);
             }
 
+            function isString(value) {
+                return typeof value === 'string';
+            }
+
             if (arguments.length === 0) {
                 output = new Date();
             } else if (arguments.length === 1) {
-                const arg = arguments[0].toLowerCase();
+
+                if( isString(arguments[0] ) ){
+                     arg = arguments[0].toLowerCase();
+                } else {
+                    arg = arguments[0]
+                }
 
                 if (isValidDateFormat(arg)) {
                     output = new Date(arg + "T00:00:00");
@@ -126,6 +135,8 @@
                     output = new Date().getDate();
                 } else if (arg === "year") {
                     output = new Date().getUTCFullYear();
+                } else if( typeof arg === "number" ){
+                    output = new Date(arg);
                 }
             } else {
                 // If more than one argument is provided, check for specific cases
@@ -136,7 +147,7 @@
                         date = index;
                     } else if (arg === "today") {
                         today = index;
-                        console.log("Invalid Date")
+                        console.log("Invalid Date, you can not use today")
                     } else if (arg === "month") {
                         month = index;
                     } else if (arg === "day") {
@@ -156,29 +167,63 @@
             return output;
         }
 
-        function checkEventTime(event) {
-            if (!event || !event.body || !event.startDate || !event.endDate || !event.eventType) {
-                // If event, event body, startDate, endDate, or eventType is not provided, return false
-                return false;
+        function convertTimeToTimestamp(timeString, dateString) {
+
+            const date = new Date(dateString);
+            const [hours, minutes] = timeString.split(':');
+            const isPM = timeString.toLowerCase().includes('p.m.') || timeString.toLowerCase().includes('pm');
+            let parsedHours = parseInt(hours, 10);
+
+            if (isPM && parsedHours !== 12) {
+                parsedHours += 12;
             }
 
-            // Check if eventType is "Events"
-            if (event.eventType !== "Events") {
-                return false;
+            date.setHours(parsedHours, parseInt(minutes, 10), 0, 0);
+
+            return date.getTime()
+        }
+
+        function eventActive (eventObject, time){
+            let eventStartTime, eventEndTime, active;
+            const currentTime  = getDate();
+            // Get Raids Start Time
+
+
+            if( !eventObject.body && eventObject.bodyLines && eventObject.eventType === "Raids" && eventObject.image){
+                console.log(eventObject.bodyLines)
+                eventStartTime = convertTimeToTimestamp( eventObject.bodyLines[0].split(" ")[1].trim() + " " + eventObject.bodyLines[0].split(" ")[2].trim(), getDate(eventObject.startDate) )
+                eventEndTime = convertTimeToTimestamp( eventObject.bodyLines[1].split(" ")[1].trim() + " " + eventObject.bodyLines[1].split(" ")[2].trim(), getDate(eventObject.endDate) )
+
+                active = currentTime > eventStartTime  &&  currentTime < eventEndTime
+            }
+            //Get Raid Hour
+            if( eventObject.body && !eventObject.bodyLines  && eventObject.eventType === "Events" && eventObject.image){
+                // console.log( "Raids Hour: ", eventObject)
+                // eventStartTime = convertTimeToTimestamp(eventObject.body.split('–')[0].trim(), getDate(eventObject.startDate))
+            }
+            //Get Event - Spotlight
+            if( !eventObject.body && eventObject.bodyLines && eventObject.eventType === "Events" && eventObject.image){
+                // console.log("Event - Spotlight: ", eventObject.bodyLines)
+                // eventStartTime = convertTimeToTimestamp(eventObject.body.split('–')[0].trim(), getDate(eventObject.startDate))
+            }
+            //Get Event
+            if( eventObject.body && !eventObject.bodyLines && eventObject.eventType === "Events" && !eventObject.image){
+                // console.log("Event: ", eventObject)
+                // console.log(eventObject.body.split('–')[0].trim())
+                eventStartTime = convertTimeToTimestamp(eventObject.body.split('–')[0].trim(), getDate(eventObject.startDate))
             }
 
-            // Extract start and end times from the event body
-            const [startTimeStr, endTimeStr] = event.body.split("–").map(str => str.trim());
+            if(time === "start" ){
+                return eventStartTime
+            } else if ( time === "end"){
+                return eventEndTime
+            }
 
-            // Create date objects for current time, start time, end time, start date, and end date
-            const currentDate = new Date();
-            const startTime = new Date(currentDate.toDateString() + " " + startTimeStr);
-            const endTime = new Date(currentDate.toDateString() + " " + endTimeStr);
-            const startDate = new Date(event.startDate + 'T00:00:00');
-            const endDate = new Date(event.endDate + 'T23:59:59'); // Set to end of the day
 
-            // Check if the current time is between start and end times and if the current date is within the start and end date
-            return currentDate >= startTime && currentDate <= endTime && currentDate >= startDate && currentDate <= endDate;
+            console.log( active )
+            return active;
+            //
+            // convertTimeToTimestamp(eventObject.body.split('–')[1].trim(), getDate(eventObject.endDate))
         }
 
         function SearchList(){
@@ -232,9 +277,9 @@
             return (
 
                 eventData.map( ( value, index) => (
-                    (value.eventType === "Raids"
-                        && getDate('today') >= getDate(value.startDate)
-                        && getDate('today') <= getDate(value.endDate) ) ?
+                    (value.eventType === "Raids" && eventActive( value )
+                            )
+                        ?
                         <div className="event event--inline container card" key={"raid-" + index}>
                             <div className="event-layout row card-body">
                                 {(!value.image) ? "" :
@@ -277,6 +322,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div> : ""
                 ))
             )
@@ -289,7 +335,7 @@
                         ( value.eventType === "Events" )
                         && ( getDate('today') >= getDate(value.startDate) && getDate('today') <= getDate(value.endDate))
                     ) ?
-                        <div className="event event--inline container card" key={"event-" + index}>
+                        <div className="event event--inline container card" key={"event-" + index}> {  eventActive(value) }
                             <div className="event-layout row card-body">
                                 {(!value.image) ? "" :
                                     <div className="event-image col">
@@ -311,6 +357,7 @@
                             </div>
                         </div>
                         : ""
+
                 ))
             )
         }
