@@ -14,7 +14,7 @@
 <body>
 
 <script>
-    let superString = "!favorite & !shiny & !3* & !4* & !lucky & !ultra beasts & !12candy & !purify & !free-evol & !evol & !pvp & !xl & !xxl & &!legendary & !mythical";
+    let superString = "!favorite & !shiny & !3* & !4* & !lucky & !ultra beasts & !12candy & !purify & !free-evol & !evolve & !pvp & !xl & !xxl & &!legendary & !mythical & !shadow & !2x Transfer & !pvp";
 
     function copySearchString (id) {
         let output = data[id]['search']
@@ -22,15 +22,16 @@
         let tag = data[id]['tag']
 
         /** Safe Transfer */
-        if(output === '' && tag === "" && pokemon === "" ){
+        if(output === '' && tag === "" && pokemon === "" || data[id]['name'] === "Safe Transfer"){
             copyContent(superString);
         }
         /** Has Tag, Pokemon, & Search Value*/
         else if( tag.length > 0 && pokemon.length > 0 && output.length > 0){
-
             copyContent( output + " & " + pokemon + " & !" + tag );
         } else if ( tag.length > 0 && pokemon.length > 0){
             copyContent( pokemon + " & !" + tag )
+        } else {
+            copyContent( output + " & !" + tag)
         }
 
     }
