@@ -1,6 +1,5 @@
 import {eventActive, getDate } from "./utility";
 
-
 export default function RaidCards ({months, eventData, raidCP}){
     return (
         eventData.map( ( value, index) => (
@@ -23,6 +22,7 @@ export default function RaidCards ({months, eventData, raidCP}){
                                     <p>
                                         <span>{months[getDate(value.startDate, "month")]}</span>
                                         <span> {getDate("day", value.startDate)}{(value.startDate !== value.endDate)? "-" + getDate(value.endDate, "day") : ""} </span>
+                                        <br /><small> { value.bodyLines[0]} - {value.bodyLines[1]} </small>
                                     </p>
                                 </div>
 

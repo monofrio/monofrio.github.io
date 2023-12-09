@@ -1,6 +1,5 @@
 import './utility'
 import data from "../data/data.json";
-import raidCP from "../data/Pokemon_Raid_Hundo_CP.json";
 
 function copySearchString (id) {
     let output = data.data[id]['search']

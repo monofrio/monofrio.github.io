@@ -9,7 +9,7 @@ import SearchList from "./components/SearchList";
 import RaidCards from "./components/RaidCard";
 import EventCards from "./components/EventCards";
 import SpotlightHourCard from "./components/SpotlightHourCard";
-
+import {eventActive, getDate } from "./components/utility";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -31,8 +31,8 @@ function App() {
                             <RaidCards months={data.months} eventData={data.eventData} raidCP={raidCP} />
                             <h3 className={"lead"}>Events</h3>
                             <EventCards months={data.months} eventData={data.eventData} raidCP={raidCP} />
-                            // <h3 className={"lead"}>Spotlight Hour</h3>
-                            // <SpotlightHourCard months={data.months} eventData={data.eventData} />
+                            <h3 className={"lead"}>Spotlight Hour</h3>
+                            <SpotlightHourCard months={data.months} eventData={data.eventData} />
                         </section>
                     </div>
                 </div>

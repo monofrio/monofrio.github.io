@@ -1,12 +1,11 @@
 import {eventActive, getDate } from "./utility";
-import React, { useEffect } from 'react';
-
 
 export default function EventCards ({months, eventData}){
     return(
         eventData.map( ( value, index) => (
                 (
-                    ( value.eventType === "Events" ) && eventActive( value )
+                    ( value.eventType === "Events" )
+                    && eventActive( value )
                 ) ?
                     <div className="event event--inline container card" key={"event-" + index}>
                         <div className="event-layout row card-body">

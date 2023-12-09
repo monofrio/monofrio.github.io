@@ -90,7 +90,7 @@ export const eventActive = (eventObject, time) => {
 
 
     if( !eventObject.body && eventObject.bodyLines && eventObject.eventType === "Raids" && eventObject.image){
-        console.log(eventObject.bodyLines)
+        // console.log(eventObject.bodyLines)
         eventStartTime = convertTimeToTimestamp( eventObject.bodyLines[0].split(" ")[1].trim() + " " + eventObject.bodyLines[0].split(" ")[2].trim(), getDate(eventObject.startDate) )
         eventEndTime = convertTimeToTimestamp( eventObject.bodyLines[1].split(" ")[1].trim() + " " + eventObject.bodyLines[1].split(" ")[2].trim(), getDate(eventObject.endDate) )
 
@@ -108,9 +108,13 @@ export const eventActive = (eventObject, time) => {
     }
     //Get Event
     if( eventObject.body && !eventObject.bodyLines && eventObject.eventType === "Events" && !eventObject.image){
-        // console.log("Event: ", eventObject)
-        // console.log(eventObject.body.split('–')[0].trim())
+        console.log("Event: ", eventObject)
+        console.log(eventObject.body.split('–')[0].trim())
         eventStartTime = convertTimeToTimestamp(eventObject.body.split('–')[0].trim(), getDate(eventObject.startDate))
+        eventEndTime = convertTimeToTimestamp(eventObject.body.split('–')[1].trim(), getDate(eventObject.endDate))
+
+        active = currentTime > eventStartTime  &&  currentTime < eventEndTime
+        console.log(active)
     }
 
     if(time === "start" ){
@@ -120,7 +124,7 @@ export const eventActive = (eventObject, time) => {
     }
 
 
-    console.log( active )
+    // console.log( active )
     return active;
     //
     // convertTimeToTimestamp(eventObject.body.split('–')[1].trim(), getDate(eventObject.endDate))
