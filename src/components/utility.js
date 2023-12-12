@@ -85,48 +85,46 @@ export const convertTimeToTimestamp = (timeString, dateString) => {
 
 export const eventActive = (eventObject, time) => {
     let eventStartTime, eventEndTime, active;
-    const currentTime  = getDate();
-    // Get Raids Start Time
+    const currentTime = getDate();
 
+    if(time === "today"){
+        return getDate(eventObject.startDate, "day") === getDate("day")
+    }
 
-    if( !eventObject.body && eventObject.bodyLines && eventObject.eventType === "Raids" && eventObject.image){
+    if ( !eventObject.body && eventObject.bodyLines && eventObject.eventType === "Raids" && eventObject.image) {
         // console.log(eventObject.bodyLines)
-        eventStartTime = convertTimeToTimestamp( eventObject.bodyLines[0].split(" ")[1].trim() + " " + eventObject.bodyLines[0].split(" ")[2].trim(), getDate(eventObject.startDate) )
-        eventEndTime = convertTimeToTimestamp( eventObject.bodyLines[1].split(" ")[1].trim() + " " + eventObject.bodyLines[1].split(" ")[2].trim(), getDate(eventObject.endDate) )
 
-        active = currentTime > eventStartTime  &&  currentTime < eventEndTime
+        eventStartTime = convertTimeToTimestamp(eventObject.bodyLines[0].split(" ")[1].trim() + " " + eventObject.bodyLines[0].split(" ")[2].trim(), getDate(eventObject.startDate))
+        eventEndTime = convertTimeToTimestamp(eventObject.bodyLines[1].split(" ")[1].trim() + " " + eventObject.bodyLines[1].split(" ")[2].trim(), getDate(eventObject.endDate))
+
+        active = currentTime > eventStartTime && currentTime < eventEndTime
     }
     //Get Raid Hour
-    if( eventObject.body && !eventObject.bodyLines  && eventObject.eventType === "Events" && eventObject.image){
+    if (eventObject.body && !eventObject.bodyLines && eventObject.eventType === "Events" && eventObject.image) {
         // console.log( "Raids Hour: ", eventObject)
         // eventStartTime = convertTimeToTimestamp(eventObject.body.split('–')[0].trim(), getDate(eventObject.startDate))
+
     }
     //Get Event - Spotlight
-    if( !eventObject.body && eventObject.bodyLines && eventObject.eventType === "Events" && eventObject.image){
-        // console.log("Event - Spotlight: ", eventObject.bodyLines)
-        // eventStartTime = convertTimeToTimestamp(eventObject.body.split('–')[0].trim(), getDate(eventObject.startDate))
+    if (eventObject.eventType === "Events" && eventObject.image && !eventObject.body) {
+        eventStartTime = convertTimeToTimestamp(eventObject.bodyLines[1].split(" – ")[0].trim(), getDate(eventObject.startDate))
+        eventEndTime = convertTimeToTimestamp(eventObject.bodyLines[1].split(" – ")[1].split(" ")[0] + " " + eventObject.bodyLines[1].split(" – ")[1].split(" ")[1], getDate(eventObject.endDate))
+        active = currentTime > eventStartTime && currentTime < eventEndTime
     }
     //Get Event
-    if( eventObject.body && !eventObject.bodyLines && eventObject.eventType === "Events" && !eventObject.image){
-        console.log("Event: ", eventObject)
-        console.log(eventObject.body.split('–')[0].trim())
+    if (eventObject.body && !eventObject.bodyLines && eventObject.eventType === "Events" && !eventObject.image) {
         eventStartTime = convertTimeToTimestamp(eventObject.body.split('–')[0].trim(), getDate(eventObject.startDate))
         eventEndTime = convertTimeToTimestamp(eventObject.body.split('–')[1].trim(), getDate(eventObject.endDate))
 
-        active = currentTime > eventStartTime  &&  currentTime < eventEndTime
-        console.log(active)
+        active = currentTime > eventStartTime && currentTime < eventEndTime
+
     }
 
-    if(time === "start" ){
+    if (time === "start") {
         return eventStartTime
-    } else if ( time === "end"){
+    } else if (time === "end") {
         return eventEndTime
     }
 
-
-    // console.log( active )
     return active;
-    //
-    // convertTimeToTimestamp(eventObject.body.split('–')[1].trim(), getDate(eventObject.endDate))
 }
-

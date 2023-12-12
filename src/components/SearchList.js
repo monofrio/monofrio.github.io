@@ -7,7 +7,7 @@ function copySearchString (id) {
     let tag = data.data[id]['tag']
 
     /** Safe Transfer */
-    if(output === '' && tag === "" && pokemon === "" || data.data[id]['name'] === "Safe Transfer"){
+    if((output === '' && tag === "" && pokemon === "") || (data.data[id]['name'] === "Safe Transfer") ){
         copyContent(superString);
     }
     /** Has Tag, Pokemon, & Search Value*/
@@ -28,10 +28,10 @@ let copyTag = function(id){
 
 let superString = "!favorite & !shiny & !3* & !4* & !lucky & !ultra beasts & !12candy & !purify & !free-evol & !evolve & !pvp & !xl & !xxl & &!legendary & !mythical & !shadow & !2x Transfer & !pvp";
 
-function findNew(id){
-    let output = data.data[id]['value']  + " & !" + data.data[id]['tag'];
-    copyContent(output);
-}
+// function findNew(id){
+//     let output = data.data[id]['value']  + " & !" + data.data[id]['tag'];
+//     copyContent(output);
+// }
 
 async function copyContent(data) {
     let text = data;
@@ -55,7 +55,7 @@ export default function SearchList({data}){
                     <div className={"row"} >
                         <div className={"col"}>
                             <h4>{val.title} &nbsp;
-                                { (val.info === "")? "" :<><button type="button" className={"btn btn-outline-info btn-sm"} data-bs-toggle={"modal"} data-bs-target={"#" + "Modal" + val.id }>more info</button></>}
+                                { (val.info === "")? "" :<><button type="button" className={"btn btn-outline-info btn-sm"} data-bs-toggle={"modal"} data-bs-target={"#Modal" + val.id }>more info</button></>}
                                 {(val.tag === "")? "" : <><br/><button className={"btn btn-dark btn h6"} onClick={ () => copyTag(val.id) } >Tag: {val.tag}</button></> }
                             </h4>
                         </div>

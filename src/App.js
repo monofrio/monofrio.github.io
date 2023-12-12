@@ -9,7 +9,6 @@ import SearchList from "./components/SearchList";
 import RaidCards from "./components/RaidCard";
 import EventCards from "./components/EventCards";
 import SpotlightHourCard from "./components/SpotlightHourCard";
-import {eventActive, getDate } from "./components/utility";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {

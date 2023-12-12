@@ -4,7 +4,7 @@ export default function EventCards ({months, eventData}){
     return(
         eventData.map( ( value, index) => (
                 (
-                    ( value.eventType === "Events" )
+                    ( value.eventType === "Events" ) && !value.image
                     && eventActive( value )
                 ) ?
                     <div className="event event--inline container card" key={"event-" + index}>
