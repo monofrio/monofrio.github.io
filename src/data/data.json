@@ -1,7 +1,7 @@
 {
     "appInfo" : {
         "title": "Pokemon Go Sidekick Tool",
-        "version": "0.2.7",
+        "version": "0.2.9",
         "updated": "December 14, 2023"
     },
     "data" : [
@@ -57,16 +57,16 @@
             "pokemon": "",
             "search": "",
             "tag": "",
-            "info": "This will display 0 & 1 Star pokemon that are not XL or XXL that Combat Power is 1000 and less"
+            "info": "This will display 0 & 1 Star pokemon that are not XL or XXL that have Combat Power 10-1000"
         },
         {
             "id": "6",
             "name": "December Trade",
             "title": "December Trade",
-            "pokemon": "stufful, squirtle, scatterbug, charmander, bulbasaur",
+            "pokemon": "ditto, stufful, squirtle, scatterbug, charmander, bulbasaur",
             "search": "!favorite & !4* & !3* & !pvp & !xl & !xxl &!shiny",
             "tag": "trade",
-            "info": "Finds: stufful, squirtle, scatterbug, charmander, bulbasaur"
+            "info": "Finds: ditto, stufful, squirtle, scatterbug, charmander, bulbasaur"
         }
     ],
     "savedData" : {
@@ -78,6 +78,10 @@
         "tag": "2x Transfer",
         "info": ""
     },
+    "months" : [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ],
     "eventData" : [
         {
             "image": {
@@ -408,9 +412,6 @@
             "eventType": "Events",
             "startDate": "2023-12-26"
         }
-    ],
-    "months" : [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-]
+    ]
+
 }

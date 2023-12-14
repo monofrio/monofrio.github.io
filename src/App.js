@@ -14,6 +14,7 @@ import SpotlightHourCard from "./components/SpotlightHourCard";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+    const isTusday = (new Date().getDay() === 2);
   return (
     <div className="App">
         <Helmet>
@@ -37,7 +38,7 @@ function App() {
                             <RaidCards months={data.months} eventData={data.eventData} raidCP={raidCP} />
                             <h3 className={"lead p-3"}>Events</h3>
                             <EventCards months={data.months} eventData={data.eventData} raidCP={raidCP} />
-                            <h3 className={"lead p-3"}>Spotlight Hour</h3>
+                            <h3 className={`lead p-3 ${isTusday? "text-success" : "text-danger"}`}>Spotlight Hour { isTusday ? "Today" : "Every Tuesday" }</h3>
                             <SpotlightHourCard months={data.months} eventData={data.eventData} />
                         </section>
                     </div>

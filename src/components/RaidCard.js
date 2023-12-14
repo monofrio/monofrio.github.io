@@ -3,7 +3,7 @@ import {eventActive, getDate } from "./utility";
 export default function RaidCards ({months, eventData, raidCP}){
     return (
         eventData.map( ( value, index) => (
-            (value.eventType === "Raids" && eventActive( value )
+            (value.eventType === "Raids" && eventActive( value ) || eventActive(value , 'today')
             )
                 ?
                 <div className="event event--inline container card" key={"raid-" + index}>
