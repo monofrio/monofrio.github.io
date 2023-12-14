@@ -1,5 +1,7 @@
 import './App.css';
 import './components/Alerts';
+import { Helmet } from 'react-helmet';
+
 import data from './data/data.json'
 import raidCP from './data/Pokemon_Raid_Hundo_CP.json'
 import Alerts from "./components/Alerts";
@@ -14,6 +16,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div className="App">
+        <Helmet>
+            <title>Pokemon Go Sidekick Tool</title>
+            <meta name="description" content="Best way to manage your pokemon with pre-made search scripts. See upcoming Events and Raids" />
+        </Helmet>
+
         <Alerts />
         <Header title={data.appInfo.title} />
         <div className="accordion" id="accordionExample">
