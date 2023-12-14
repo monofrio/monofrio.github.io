@@ -1,6 +1,7 @@
 import {eventActive, getDate } from "./utility";
 
 export default function RaidCards ({months, eventData, raidCP}){
+    let pokemonID;
     return (
         eventData.map( ( value, index) => (
             (value.eventType === "Raids" && eventActive( value ) || eventActive(value , 'today')
@@ -10,9 +11,30 @@ export default function RaidCards ({months, eventData, raidCP}){
                     <div className="event-layout row card-body" style={ { padding: "10px 0 10px 10px"}}>
                         {(!value.image) ? "" :
                             <div className="event-image col-5">
-                                <img
-                                    src={value.image.url}
-                                    width="100" height="100" alt=""/>
+                                {
+                                    Object.keys(raidCP).map( key => {
+                                        let name = value.name;
+                                        const raid = raidCP[key];
+                                        const wordToRemove = "Mega";
+                                        /** check if Mega is in the name and remove it to find the correct name look up*/
+                                        const regex = new RegExp("\\b" + wordToRemove + "\\b", "gi");
+                                        if( value.name.includes("Mega") ){
+                                            name = value.name.replace(regex, '').trim()
+                                        }
+                                        /** Show perfect IV for catching after a raid */
+                                        return (raid.name === name) ? (
+                                            <div key={"mega"+index}>
+                                                <a href={'https://db.pokemongohub.net/pokemon/' + key } target={'new'} >
+                                                <img
+                                                    src={value.image.url}
+                                                    width="100" height="100" alt=""/>
+                                                </a>
+                                                <p style={ {fontSize: "0.7rem", lineHeight: "15px"}}>
+                                                    <span> {raid.hundoCP} / {raid.hundoWeatherCP}</span><br/>
+                                                    <span>100% IV / Weather Boosted</span></p>
+                                            </div> ) : ""
+                                    })
+                                }
                             </div>
                         }
                         <div className="event-details col" >
@@ -25,26 +47,6 @@ export default function RaidCards ({months, eventData, raidCP}){
                                         <br /><small> { value.bodyLines[0]} - {value.bodyLines[1]} </small>
                                     </p>
                                 </div>
-                                {
-                                    Object.keys(raidCP).map( key => {
-                                        let name = value.name;
-                                        const raid = raidCP[key];
-                                        const wordToRemove = "Mega";
-
-                                        /** check if Mega is in the name and remove it to find the correct name look up*/
-                                        const regex = new RegExp("\\b" + wordToRemove + "\\b", "gi");
-                                        if( value.name.includes("Mega") ){
-                                            name = value.name.replace(regex, '').trim()
-                                        }
-                                        /** Show perfect IV for catching after a raid */
-                                        return (raid.name === name) ? (
-                                            <div key={"mega"+index}>
-                                                <p style={ {fontSize: "0.7rem", lineHeight: "15px"}}>
-                                                    <span>{raid.hundoCP} / {raid.hundoWeatherCP}</span><br/>
-                                                    <span>100% IV / Weather Boosted</span></p>
-                                            </div> ) : ""
-                                    })
-                                }
                             </div>
                         </div>
                     </div>
