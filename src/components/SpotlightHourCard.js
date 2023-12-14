@@ -3,9 +3,9 @@ import {eventActive, getDate } from "./utility";
 export default function SpotlightHourCard ({months, eventData}){
     return(
         eventData.map( (value, index) => (
-            (value.eventType === "Events") && value.image && !value.body && eventActive(value)
+            (value.eventType === "Events") && value.image && !value.body && eventActive(value, 'today')
                 ?
-                <div className="event event--inline container card" key={"spotlight-" + index}>
+                <div className={"event event--inline container card " + eventActive(value, "today")? "alert-warning alert" : ""} key={"spotlight-" + index}>
                     <div className="event-layout row card-body">
                         {(!value.image) ? "" :
                             <div className="event-image col">

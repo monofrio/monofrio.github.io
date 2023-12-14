@@ -26,7 +26,7 @@ let copyTag = function(id){
     copyContent(output);
 }
 
-let superString = "!favorite & !shiny & !3* & !4* & !lucky & !ultra beasts & !12candy & !purify & !free-evol & !evolve & !pvp & !xl & !xxl & &!legendary & !mythical & !shadow & !2x Transfer & !pvp";
+let superString = "!favorite & !shiny & !2* & !3* & !4* & !lucky & !ultra beasts & !12candy & !purify & !free-evol & !evolve & !pvp & !xl & !xxl & &!legendary & !mythical & !shadow & !2x Transfer & !pvp &!trade & cp-1000";
 
 // function findNew(id){
 //     let output = data.data[id]['value']  + " & !" + data.data[id]['tag'];
@@ -55,7 +55,7 @@ export default function SearchList({data}){
                     <div className={"row"} >
                         <div className={"col"}>
                             <h4>{val.title} &nbsp;
-                                { (val.info === "")? "" :<><button type="button" className={"btn btn-outline-info btn-sm"} data-bs-toggle={"modal"} data-bs-target={"#Modal" + val.id }>more info</button></>}
+                                { (val.info === "")? "" :<><button type="button" className={"btn btn-outline-info btn-sm"} data-bs-toggle={"modal"} data-bs-target={"#Modal" + val.id }>i</button></>}
                                 {(val.tag === "")? "" : <><br/><button className={"btn btn-dark btn h6"} onClick={ () => copyTag(val.id) } >Tag: {val.tag}</button></> }
                             </h4>
                         </div>

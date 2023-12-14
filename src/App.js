@@ -18,19 +18,19 @@ function App() {
         <Header title={data.appInfo.title} />
         <div className="accordion" id="accordionExample">
             <div className="accordion-item">
-                <h2 className="accordion-header">
-                    <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <h2 className="accordion-header ">
+                    <button className="accordion-button alert-success alert" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         Current Raids and Events
                     </button>
                 </h2>
                 <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                     <div className="accordion-body">
                         <section className="section-events">
-                            <h3 className={"lead"}>Raids</h3>
+                            <h3 className={"lead p-3"}>Raids</h3>
                             <RaidCards months={data.months} eventData={data.eventData} raidCP={raidCP} />
-                            <h3 className={"lead"}>Events</h3>
+                            <h3 className={"lead p-3"}>Events</h3>
                             <EventCards months={data.months} eventData={data.eventData} raidCP={raidCP} />
-                            <h3 className={"lead"}>Spotlight Hour</h3>
+                            <h3 className={"lead p-3"}>Spotlight Hour</h3>
                             <SpotlightHourCard months={data.months} eventData={data.eventData} />
                         </section>
                     </div>
@@ -38,7 +38,7 @@ function App() {
             </div>
             <div className="accordion-item">
                 <h2 className="accordion-header">
-                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <button className="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                         Pokemon Tag Manager
                     </button>
                 </h2>

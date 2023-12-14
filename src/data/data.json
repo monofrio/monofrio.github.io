@@ -1,8 +1,8 @@
 {
     "appInfo" : {
         "title": "Pokemon Go Sidekick Tool",
-        "version": "0.2.6",
-        "updated": "December 12, 2023"
+        "version": "0.2.7",
+        "updated": "December 14, 2023"
     },
     "data" : [
         {
@@ -57,18 +57,27 @@
             "pokemon": "",
             "search": "",
             "tag": "",
-            "info": ""
+            "info": "This will display 0 & 1 Star pokemon that are not XL or XXL that Combat Power is 1000 and less"
         },
         {
             "id": "6",
-            "name": "December 2x Transfer",
-            "title": "2x Transfer Candy",
-            "pokemon": "stufful, bergmite, bronzor, squirtle, scatterbug, charmander, bulbasaur",
+            "name": "December Trade",
+            "title": "December Trade",
+            "pokemon": "stufful, squirtle, scatterbug, charmander, bulbasaur",
             "search": "!favorite & !4* & !3* & !pvp & !xl & !xxl &!shiny",
-            "tag": "2x Transfer",
-            "info": ""
+            "tag": "trade",
+            "info": "Finds: stufful, squirtle, scatterbug, charmander, bulbasaur"
         }
     ],
+    "savedData" : {
+        "id": "6",
+        "name": "December 2x Transfer",
+        "title": "2x Transfer Candy",
+        "pokemon": "stufful, squirtle, scatterbug, charmander, bulbasaur",
+        "search": "!favorite & !4* & !3* & !pvp & !xl & !xxl &!shiny",
+        "tag": "2x Transfer",
+        "info": ""
+    },
     "eventData" : [
         {
             "image": {

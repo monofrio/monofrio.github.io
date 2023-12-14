@@ -25,7 +25,6 @@ export default function RaidCards ({months, eventData, raidCP}){
                                         <br /><small> { value.bodyLines[0]} - {value.bodyLines[1]} </small>
                                     </p>
                                 </div>
-
                                 {
                                     Object.keys(raidCP).map( key => {
                                         let name = value.name;
@@ -49,7 +48,6 @@ export default function RaidCards ({months, eventData, raidCP}){
                             </div>
                         </div>
                     </div>
-
                 </div> : ""
         ))
     )
