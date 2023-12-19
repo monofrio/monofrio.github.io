@@ -4,7 +4,7 @@ export default function RaidCards ({months, eventData, raidCP}){
     let pokemonID;
     return (
         eventData.map( ( value, index) => (
-            (value.eventType === "Raids" && eventActive( value ) || eventActive(value , 'today')
+            (value.eventType === "Raids" && (eventActive( value ) || eventActive(value , 'today'))
             )
                 ?
                 <div className="event event--inline container card" key={"raid-" + index}>
