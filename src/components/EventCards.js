@@ -1,7 +1,6 @@
 import {eventActive, getDate } from "./utility";
 
 export default function EventCards ({months, eventData}){
-    let count = 0;
     return(
         eventData.map( ( value, index) => (
                 (
@@ -29,10 +28,10 @@ export default function EventCards ({months, eventData}){
                             </div>
                         </div>
                     </div>
-                    : ''
+
+                    : ""
             )
 
         )
-
     )
 }
