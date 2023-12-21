@@ -1,6 +1,6 @@
-
+const testDate = '';
 // utils.js
-export const getDate = (...args) => {
+export const getDate = (...args) =>{
     let output, date, today, month, day, arg;
 
     function isValidDateFormat(input) {
@@ -16,7 +16,7 @@ export const getDate = (...args) => {
     }
 
     if (args.length === 0) {
-        output = new Date();
+        output = new Date(testDate);
     } else if (args.length === 1) {
         if (isString(args[0])) {
             arg = args[0].toLowerCase();
@@ -27,14 +27,14 @@ export const getDate = (...args) => {
         if (isValidDateFormat(arg)) {
             output = new Date(arg + "T00:00:00");
         } else if (arg === "today") {
-            output = new Date();
+            output = new Date(testDate);
             output.setHours(0, 0, 0, 0);
         } else if (arg === "month") {
-            output = new Date().getUTCMonth();
+            output = new Date(testDate).getUTCMonth();
         } else if (arg === "day") {
-            output = new Date().getDate();
+            output = new Date(testDate).getDate();
         } else if (arg === "year") {
-            output = new Date().getUTCFullYear();
+            output = new Date(testDate).getUTCFullYear();
         } else if (typeof arg === "number") {
             output = new Date(arg);
         }

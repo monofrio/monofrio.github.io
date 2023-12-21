@@ -1,11 +1,12 @@
 import {eventActive, getDate } from "./utility";
 
 export default function EventCards ({months, eventData}){
+    let count = 0;
     return(
         eventData.map( ( value, index) => (
                 (
                     ( value.eventType === "Events" ) && !value.image
-                    && eventActive( value )
+                    && ( eventActive( value ) || eventActive( value, 'today') )
                 ) ?
                     <div className="event event--inline container card" key={"event-" + index}>
                         <div className="event-layout row card-body">

@@ -30,7 +30,7 @@ function App() {
                     <button className="accordion-button alert-success alert" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         Current Raids and Events
                     </button>
-                </h2>
+                       </h2>
                 <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                     <div className="accordion-body">
                         <section className="section-events">
