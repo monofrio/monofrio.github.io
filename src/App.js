@@ -12,6 +12,32 @@ import RaidCards from "./components/RaidCard";
 import EventCards from "./components/EventCards";
 import SpotlightHourCard from "./components/SpotlightHourCard";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {getDate} from "./components/utility";
+
+function pullEventList() {
+    let list = [];
+    data.eventData.map( value => {
+
+        if( value.eventType === "Events" && !value.image ){
+            list.push( value )
+        }
+
+    } )
+
+    return list;
+}
+function nextEvent(){
+    let list = pullEventList();
+    let nextEvents = [];
+
+    list.map( value => {
+        if( getDate( value.startDate ) > getDate()  ){
+            nextEvents.push( value )
+        }
+    })
+
+    return nextEvents;
+}
 
 function App() {
     const isTusday = (new Date().getDay() === 2);
@@ -21,7 +47,6 @@ function App() {
             <title>Pokemon Go Sidekick Tool</title>
             <meta name="description" content="Best way to manage your pokemon with pre-made search scripts. See upcoming Events and Raids" />
         </Helmet>
-
         <Alerts />
         <Header title={data.appInfo.title} />
         <div className="accordion" id="accordionExample">
@@ -37,7 +62,8 @@ function App() {
                             <h3 className={"lead p-3"}>Raids</h3>
                             <RaidCards months={data.months} eventData={data.eventData} raidCP={raidCP} />
                             <h3 className={"lead p-3"}>Events</h3>
-                            <EventCards months={data.months} eventData={data.eventData} raidCP={raidCP} />
+                            <EventCards months={data.months} eventData={pullEventList()} raidCP={raidCP} />
+                            <div className="container card">{ nextEvent()[0]? "Next: " + data.months[getDate(nextEvent()[0].startDate, "month")]:"Next: No listings yet." } { nextEvent()[0]?getDate(nextEvent()[0].startDate, "day") + ", ":"" } { nextEvent()[0]?nextEvent()[0].name:""  }</div>
                             <h3 className={`lead p-3 ${isTusday? "text-success" : "text-danger"}`}>Spotlight Hour { isTusday ? "Today" : "Every Tuesday" }</h3>
                             <SpotlightHourCard months={data.months} eventData={data.eventData} />
                         </section>
