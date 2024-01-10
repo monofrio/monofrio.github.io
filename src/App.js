@@ -16,7 +16,7 @@ import {getDate} from "./components/utility";
 
 function pullEventList() {
     let list = [];
-    data.eventData.map( value => {
+    data.eventData2024.map( value => {
 
         if( value.eventType === "Events" && !value.image ){
             list.push( value )
