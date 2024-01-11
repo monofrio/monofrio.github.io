@@ -60,12 +60,12 @@ function App() {
                     <div className="accordion-body">
                         <section className="section-events">
                             <h3 className={"lead p-3"}>Raids</h3>
-                            <RaidCards months={data.months} eventData={data.eventData} raidCP={raidCP} />
+                            <RaidCards months={data.months} eventData={data.eventData2024} raidCP={raidCP} />
                             <h3 className={"lead p-3"}>Events</h3>
                             <EventCards months={data.months} eventData={pullEventList()} raidCP={raidCP} />
                             <div className="container card">{ nextEvent()[0]? "Next: " + data.months[getDate(nextEvent()[0].startDate, "month")]:"Next: No listings yet." } { nextEvent()[0]?getDate(nextEvent()[0].startDate, "day") + ", ":"" } { nextEvent()[0]?nextEvent()[0].name:""  }</div>
                             <h3 className={`lead p-3 ${isTusday? "text-success" : "text-danger"}`}>Spotlight Hour { isTusday ? "Today" : "Every Tuesday" }</h3>
-                            <SpotlightHourCard months={data.months} eventData={data.eventData} />
+                            <SpotlightHourCard months={data.months} eventData={data.eventData2024} />
                         </section>
                     </div>
                 </div>
