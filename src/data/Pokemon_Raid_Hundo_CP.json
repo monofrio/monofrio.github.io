@@ -3205,6 +3205,14 @@
       "Windy"
     ]
   },
+  "380-Mega": {
+    "name": "Mega Latias",
+    "hundoCP": "2743 CP",
+    "hundoWeatherCP": "3430 CP",
+    "weatherBoost": [
+      "Windy"
+    ]
+  },
   "381": {
     "name": "Latios",
     "hundoCP": "2178 CP",
