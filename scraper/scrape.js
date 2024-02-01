@@ -15,7 +15,7 @@ async function getCP() {
     // let currentPage = 1;
     // const totalPages = 500;
 
-    let currentPage = 501
+    let currentPage = 901
     const totalPages = 1008;
 
     while (currentPage <= totalPages) {
