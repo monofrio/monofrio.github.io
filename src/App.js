@@ -51,28 +51,28 @@ function App() {
         <Alerts />
         <Header title={data.appInfo.title} />
         <div className="accordion" id="accordionExample">
-            <div className="accordion-item">
-                <h2 className="accordion-header ">
-                    <button className="accordion-button alert-success alert" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Current Raids and Events
-                    </button>
-                       </h2>
-                <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                    <div className="accordion-body">
-                        <section className="section-events">
-                            <h3 className={"lead p-3"}>Raids</h3>
-                            <RaidCards months={data.months} eventData={data.eventData} raidCP={raidCP} />
-                            <h3 className={"lead p-3"}>Raid Hour</h3>
-                            <RaidHourCards months={data.months} eventData={data.eventData} raidCP={raidCP} />
-                            <h3 className={"lead p-3"}>Events</h3>
-                            <EventCards months={data.months} eventData={pullEventList()} raidCP={raidCP} />
-                            <div className="container card">{ nextEvent()[0]? "Next: " + data.months[getDate(nextEvent()[0].startDate, "month")]:"Next: No listings yet." } { nextEvent()[0]?getDate(nextEvent()[0].startDate, "day") + ", ":"" } { nextEvent()[0]?nextEvent()[0].name:""  }</div>
-                            <h3 className={`lead p-3 ${isTusday? "text-success" : "text-danger"}`}>Spotlight Hour { isTusday ? "Today" : "Every Tuesday" }</h3>
-                            <SpotlightHourCard months={data.months} eventData={data.eventData} />
-                        </section>
-                    </div>
-                </div>
-            </div>
+            {/*<div className="accordion-item">*/}
+            {/*    <h2 className="accordion-header ">*/}
+            {/*        <button className="accordion-button alert-success alert" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">*/}
+            {/*            Current Raids and Events*/}
+            {/*        </button>*/}
+            {/*           </h2>*/}
+            {/*    <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">*/}
+            {/*        <div className="accordion-body">*/}
+            {/*            <section className="section-events">*/}
+            {/*                <h3 className={"lead p-3"}>Raids</h3>*/}
+            {/*                <RaidCards months={data.months} eventData={data.eventData} raidCP={raidCP} />*/}
+            {/*                <h3 className={"lead p-3"}>Raid Hour</h3>*/}
+            {/*                <RaidHourCards months={data.months} eventData={data.eventData} raidCP={raidCP} />*/}
+            {/*                <h3 className={"lead p-3"}>Events</h3>*/}
+            {/*                <EventCards months={data.months} eventData={pullEventList()} raidCP={raidCP} />*/}
+            {/*                <div className="container card">{ nextEvent()[0]? "Next: " + data.months[getDate(nextEvent()[0].startDate, "month")]:"Next: No listings yet." } { nextEvent()[0]?getDate(nextEvent()[0].startDate, "day") + ", ":"" } { nextEvent()[0]?nextEvent()[0].name:""  }</div>*/}
+            {/*                <h3 className={`lead p-3 ${isTusday? "text-success" : "text-danger"}`}>Spotlight Hour { isTusday ? "Today" : "Every Tuesday" }</h3>*/}
+            {/*                <SpotlightHourCard months={data.months} eventData={data.eventData} />*/}
+            {/*            </section>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
             <div className="accordion-item">
                 <h2 className="accordion-header">
                     <button className="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">

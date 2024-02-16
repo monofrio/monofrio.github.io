@@ -1,5 +1,72 @@
 import './utility'
-import data from "../data/data.json";
+import React, { useState, useEffect } from 'react';
+// import data from "../data/data.json";
+const data =    [
+    {
+        "id": "0",
+        "name": "Safe Transfer",
+        "title": "Safe Transfer",
+        "pokemon": "",
+        "search": "",
+        "tag": "transfer",
+        "info": "This will display 0 & 1 Star pokemon that are not XL or XXL that have Combat Power 10-1000"
+    },
+    {
+        "id": "1",
+        "name": "Purify",
+        "title": "1000 Stardust to Purify",
+        "pokemon": "weedle, rattata, geodude, ducklett, zubat, foongus",
+        "search": "shadow",
+        "tag": "purify",
+        "info": ""
+    },
+    {
+        "id": "2",
+        "name": "Trade: Free Evolve",
+        "title": "Free Evolve when traded",
+        "pokemon": "haunter, karrablast, machoke, phantump, pumpkaboo, Shelmet, Boldore, Graveler, Gurdurr, Kadabra",
+        "search": "!favorite & !shadow & !4* & !lucky & !traded & !free-evol",
+        "tag": "free-evol",
+        "info": ""
+    },
+    {
+        "id": "3",
+        "name": "Free Evolve",
+        "title": " Evolve for Free",
+        "pokemon": "haunter, karrablast, machoke, phantump, pumpkaboo, Shelmet, Boldore, Graveler, Gurdurr, Kadabra",
+        "search": "!favorite & !4* & traded",
+        "tag": "evolve",
+        "info": ""
+    },
+    {
+        "id": "4",
+        "name": "PVP",
+        "title": "PVP For Great Leauge",
+        "pokemon": "",
+        "search": "0-1attack&3-4defense&3-4-hp&cp-1500",
+        "tag": "pvp",
+        "info": ""
+    },
+    {
+        "id": "5",
+        "name": "12 Candy",
+        "title": "12 Candy Evolve",
+        "pokemon": "Caterpie, Weedle, Pidgey, Wurmple, Whismwur, Pidove",
+        "search": "",
+        "tag": "12candy",
+        "info": "Pokemons that cost only 12 candies to evolve can help in 2X-xp on evolving pokemons and Field Research."
+    },
+    {
+        "id": "6",
+        "name": "400Candy",
+        "title": "400 Candy Evolve",
+        "pokemon": "Magikarp, Wailmer, Swablu, Larvesta, Noibat, Stufful, Wimpod, Meltan",
+        "search": "!favorite & !4* & !3* & !xl & !xxl &!shiny",
+        "tag": "400candy",
+        "info": "Finds:  Magikarp, Wailmer, Swablu, Larvesta, Noibat, Stufful, Wimpod, Meltan"
+    }
+]
+let superString = "!favorite & !shiny & !2* & !3* & !4* & !lucky & !ultra beasts & !12candy & !purify & !free-evol & !evolve & !pvp & !xl & !xxl &!legendary & !mythical & !shadow & !2x Transfer &!trade & cp-1000";
 
 function copySearchString (id) {
     let output = data.data[id]['search']
@@ -26,13 +93,6 @@ let copyTag = function(id){
     copyContent(output);
 }
 
-let superString = "!favorite & !shiny & !2* & !3* & !4* & !lucky & !ultra beasts & !12candy & !purify & !free-evol & !evolve & !pvp & !xl & !xxl & &!legendary & !mythical & !shadow & !2x Transfer & !pvp &!trade & cp-1000";
-
-// function findNew(id){
-//     let output = data.data[id]['value']  + " & !" + data.data[id]['tag'];
-//     copyContent(output);
-// }
-
 async function copyContent(data) {
     let text = data;
 
@@ -47,9 +107,24 @@ async function copyContent(data) {
     }
 }
 
-export default function SearchList({data}){
+// function tags(){
+//     let tags = [];
+//
+//     data.forEach( key => {
+//         tags.push(key.tag)
+//     })
+//     return tags
+// }
+// let tagList =  tags()
+// let baseTags: []
+
+
+
+export default function SearchList(){
     return(
-        <ul className="list-group">
+        <section>
+            <HideTags />
+            <ul className="list-group">
             {data.map( (val) => (
                 <li className={'list-group-item'} key={val.name}>
                     <div className={"row"} >
@@ -69,6 +144,7 @@ export default function SearchList({data}){
                 </li>
             ))}
         </ul>
+        </section>
     )
 }
 
@@ -92,4 +168,62 @@ function Modal( {val} ){
         </div>
 
     )
+}
+
+function HideTags() {
+    // State to manage checkbox values
+    const [checkboxes, setCheckboxes] = useState({
+        favorite: 1,
+        perfect: 1,
+        shiny: 1,
+        lucky: 1,
+        beasts: 1,
+        legendary: 1,
+        mythical: 1,
+        shadow: 1,
+        '3star': 1
+    });
+
+    // Function to toggle checkbox state
+    const toggleCheckbox = (key) => {
+        setCheckboxes({ ...checkboxes, [key]: !checkboxes[key] });
+    };
+
+    useEffect(() => {
+        // Code inside useEffect will run only once after the first render
+        console.log('Component mounted');
+        // You can perform any side effects here
+        // For example, fetching data, subscribing to events, etc.
+        // In this case, it's just logging that the component mounted
+
+        // Cleanup function (if needed) can be returned from useEffect
+        return () => {
+            console.log('Component will unmount');
+            // Cleanup code can be placed here
+            // For example, unsubscribing from events, cancelling timers, etc.
+        };
+    }, []); // Empty dependency array ensures that the effect runs only once
+
+    return (
+        <div className="container">
+            <aside className="row align-items-start">
+                <h3>Hide</h3>
+                {Object.keys(checkboxes).map((key) => (
+                    <div key={key} className="col-4 p-1">
+                        <input
+                            type="checkbox"
+                            className="btn-check"
+                            id={`btn-check-${key}`}
+                            autoComplete="off"
+                            checked={checkboxes[key]}
+                            onChange={() => toggleCheckbox(key)}
+                        />
+                        <label className="btn btn-outline-primary" htmlFor={`btn-check-${key}`}>
+                            {key.charAt(0).toUpperCase() + key.slice(1)}
+                        </label>
+                    </div>
+                ))}
+            </aside>
+        </div>
+    );
 }
