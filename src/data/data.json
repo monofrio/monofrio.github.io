@@ -1,7 +1,7 @@
 {
   "appInfo": {
     "title": "Pokemon Go Sidekick Tool",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "updated": "February 17, 2024"
   },
   "months": [
@@ -21,7 +21,7 @@
 
   "initialState": {
     "favorite": true,
-    "perfect": true,
+    "4*": true,
     "shiny": true,
     "lucky": true,
     "ultra beasts": true,
