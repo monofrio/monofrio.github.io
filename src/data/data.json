@@ -28,7 +28,7 @@
     "adventureeffect": true,
     "legendary": true,
     "mythical": true,
-
+    "traded": false,
     "xl": true,
     "xxl": true,
     "3*": true,
@@ -39,6 +39,14 @@
     "shadow": false,
     "xs": false,
     "xxs": false,
+    "trade": true,
+    "pvp": true,
+    "purify": true,
+    "evolve": true,
+    "free-evol": true,
+    "12candy": true,
+    "showcase": true,
+    "2x transfer": true,
     "value": "1500"
   },
 
