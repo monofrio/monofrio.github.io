@@ -1,18 +1,8 @@
 {
   "appInfo": {
     "title": "Pokemon Go Sidekick Tool",
-    "version": "0.3",
-    "updated": "February 16, 2024"
-  },
-
-  "savedData": {
-    "id": "6",
-    "name": "December 2x Transfer",
-    "title": "2x Transfer Candy",
-    "pokemon": "stufful, squirtle, scatterbug, charmander, bulbasaur",
-    "search": "!favorite & !4* & !3* & !pvp & !xl & !xxl &!shiny",
-    "tag": "2x Transfer",
-    "info": ""
+    "version": "0.5.0",
+    "updated": "February 17, 2024"
   },
   "months": [
     "January",
@@ -28,6 +18,188 @@
     "November",
     "December"
   ],
+
+  "initialState": {
+    "favorite": true,
+    "perfect": true,
+    "shiny": true,
+    "lucky": true,
+    "ultra beasts": true,
+    "adventureeffect": true,
+    "legendary": true,
+    "mythical": true,
+
+    "xl": true,
+    "xxl": true,
+    "3*": true,
+    "2*": true,
+    "1*": false,
+    "0*": false,
+    "costume": false,
+    "shadow": false,
+    "xs": false,
+    "xxs": false,
+    "value": "1500"
+  },
+
+  "data":     [
+  {
+    "id": "1",
+    "name": "Purify",
+    "title": "1000 Stardust to Purify",
+    "pokemon": "weedle, rattata, geodude, ducklett, zubat, foongus",
+    "search": "shadow",
+    "tag": "purify",
+    "info": ""
+  },
+  {
+    "id": "2",
+    "name": "Trade: Free Evolve",
+    "title": "Free Evolve when traded",
+    "pokemon": "haunter, karrablast, machoke, phantump, pumpkaboo, Shelmet, Boldore, Graveler, Gurdurr, Kadabra",
+    "search": "!favorite & !shadow & !4* & !lucky & !traded & !free-evol",
+    "tag": "free-evol",
+    "info": ""
+  },
+  {
+    "id": "3",
+    "name": "Free Evolve",
+    "title": " Evolve for Free",
+    "pokemon": "haunter, karrablast, machoke, phantump, pumpkaboo, Shelmet, Boldore, Graveler, Gurdurr, Kadabra",
+    "search": "!favorite & !4* & traded",
+    "tag": "evolve",
+    "info": ""
+  },
+  {
+    "id": "4",
+    "name": "PVP",
+    "title": "PVP For Great Leauge",
+    "pokemon": "",
+    "search": "0-1attack&3-4defense&3-4-hp&cp-1500",
+    "tag": "pvp",
+    "info": ""
+  },
+  {
+    "id": "5",
+    "name": "12 Candy",
+    "title": "12 Candy Evolve",
+    "pokemon": "Caterpie, Weedle, Pidgey, Wurmple, Whismwur, Pidove",
+    "search": "",
+    "tag": "12candy",
+    "info": "Pokemons that cost only 12 candies to evolve can help in 2X-xp on evolving pokemons and Field Research."
+  },
+  {
+    "id": "6",
+    "name": "400Candy",
+    "title": "400 Candy Evolve",
+    "pokemon": "Magikarp, Wailmer, Swablu, Larvesta, Noibat, Stufful, Wimpod, Meltan",
+    "search": "!favorite & !4* & !3* & !xl & !xxl &!shiny",
+    "tag": "400candy",
+    "info": "Finds:  Magikarp, Wailmer, Swablu, Larvesta, Noibat, Stufful, Wimpod, Meltan"
+  }
+],
+
+
+
+"FALSE-initialState": {
+  "0": {
+    "hide": true, 
+    "name":  "favorite",
+    "tag": "favorite"
+  },
+  "1": {
+    "hide": true, 
+    "name": "buddies",
+    "tag": "buddy1-5"
+  },
+  "2": {
+    "hide": true,
+    "name": "perfect",
+    "tag": "4*"
+  },
+  "3": {
+    "hide": true,
+    "name": "shiny",
+    "tag": "shiny"
+  },
+  "4": {
+    "hide": true,
+    "name": "lucky",
+    "tag": "lucky"
+  },
+  "5": {
+    "hide": true,
+    "name": "beasts",
+    "tag": "ultra beasts"
+  },
+  "6": {
+    "hide": true,
+    "name": "adventure effect",
+    "tag": "adventureeffect"
+  },
+  "7": {
+    "hide": true,
+    "name": "legendary",
+    "tag": "legendary"
+  },
+  "8": {
+    "hide": true,
+    "name": "mythical",
+    "tag": "mythical"
+  },
+  "9": {
+    "hide": true,
+    "name": "shadow",
+    "tag": "shadow"
+  },
+  "10": {
+    "hide": true,
+    "name": "xl",
+    "tag": "xl"
+  },
+  "11": {
+    "hide": true,
+    "name": "xxl",
+    "tag": "xxl"
+  },
+  "12": {
+    "hide": true,
+    "name": "3 Star",
+    "tag": "3*"
+  },
+  "13": {
+    "hide": true,
+    "name": "2 Star",
+    "tag": "2*"
+  },
+  "14": {
+    "hide": true,
+    "name": "1 Star",
+    "tag": "1*"
+  },
+  "15": {
+    "hide": true,
+    "name": "0 Star",
+    "tag": "0*"
+  },
+  "16": {
+    "hide": true,
+    "name": "costume",
+    "tag": "costume"
+  },
+  "17": {
+    "hide": true,
+    "name": "xs",
+    "tag": "xs"
+  },
+  "18": {
+    "hide": true,
+    "name": "xxs",
+    "tag": "xxs"
+  }
+
+  },
+
   "eventData": [
     {
       "image": {
