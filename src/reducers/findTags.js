@@ -112,26 +112,26 @@ const initialState = {
         costume: {
             checked: false,
             name: 'costume',
-            display_name: "Event/Costume",
+            display_name: "Costume",
             category: "gen"
         },
         traded: {
             checked: false,
             name: 'traded',
             display_name: "Traded",
-            category: "trade"
+            category: "gen"
         },
         purified: {
             checked: false,
             name: 'purified',
             display_name: "Purified",
-            category: "pur"
+            category: "gen"
         },
         shadow: {
             checked: false,
             name: 'shadow',
             display_name: "Shadow",
-            category: "pur"
+            category: "gen"
         },
         year2016: {
             checked: false,
