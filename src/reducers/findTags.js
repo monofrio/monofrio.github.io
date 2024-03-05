@@ -47,7 +47,7 @@ const initialState = {
             checked: false,
             name: 'shiny',
             display_name: "Shiny",
-            category: "gen"
+            category: "shiny"
         },
         lucky: {
             checked: false,
