@@ -35,55 +35,55 @@ const initialState = {
             checked: false,
             name: 'favorite',
             display_name: "Favorite",
-            category: "fav"
+            category: "gen"
         },
         'buddy1-5': {
             checked: false,
             name: 'buddy1-5',
             display_name: "Buddies",
-            category: "buddy"
+            category: "gen"
         },
         shiny: {
             checked: false,
             name: 'shiny',
             display_name: "Shiny",
-            category: "shiny"
+            category: "gen"
         },
         lucky: {
             checked: false,
             name: 'lucky',
             display_name: "Lucky",
-            category: "luck"
+            category: "gen"
         },
         'ultra beasts': {
             checked: false,
             name: 'ultra beasts',
             display_name: "Ultra Beast",
-            category: "beast"
+            category: "gen"
         },
         adventureeffect: {
             checked: false,
             name: 'adventureeffect',
             display_name: "Adventure Effect",
-            category: "effect"
+            category: "gen"
         },
         tradeevolve: {
             checked: false,
             name: 'tradeevolve',
             display_name: "Trade Evolve",
-            category: "trade"
+            category: "gen"
         },
         legendary: {
             checked: false,
             name: 'legendary',
             display_name: "Legendary",
-            category: "legend"
+            category: "gen"
         },
         mythical: {
             checked: false,
             name: 'mythical',
             display_name: "Mythical",
-            category: "myth"
+            category: "gen"
         },
         xl: {
             checked: false,
@@ -113,7 +113,7 @@ const initialState = {
             checked: false,
             name: 'costume',
             display_name: "Event/Costume",
-            category: "event"
+            category: "gen"
         },
         traded: {
             checked: false,
