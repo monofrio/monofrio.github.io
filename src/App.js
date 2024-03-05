@@ -24,7 +24,7 @@ function App() {
         <Provider store={store}>
 
         <Helmet>
-            <title>Pokemon Go Sidekick Tool</title>
+            <title>{data.appInfo.title}</title>
             <meta name="description" content="Best way to manage your pokemon with pre-made search scripts. See upcoming Events and Raids" />
         </Helmet>
 
@@ -56,7 +56,7 @@ function App() {
             <div className="accordion-item">
                 <h2 className="accordion-header">
                     <button className="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                        Find Pokemon
+                        Build Search
                     </button>
                 </h2>
                 <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordion1">
@@ -69,7 +69,7 @@ function App() {
             <div className="accordion-item">
                 <h2 className="accordion-header">
                     <button className="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                        Pokemon Tag Manager
+                        Other Search
                     </button>
                 </h2>
                 <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordion1">
