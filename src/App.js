@@ -71,9 +71,9 @@ function App() {
                     <div className="accordion-body">
                         <CopyHideStringButton />
                         <hr />
-                        <h3 className={'p-3'}>Game Tags</h3>
+                        <h3 className={'p-3'} >Game Tags</h3>
                         <HideTags />
-                        <h3 className={'p-3'}>Custom Tags</h3>
+                        <h3 className={'p-3'} >Custom Tags</h3>
                         <CustomGameTagsList />
 
                         <CombatPowerValue />

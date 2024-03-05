@@ -5,6 +5,9 @@ const CopyToClipboard = ({ data }) => {
     const [buttonClass, setButtonClass] = useState('btn btn-light');
 
     const copyToClipboard = () => {
+        // Update button class to trigger transition effect
+        setButtonClass('btn btn-outline-light');
+
         const gameTagsData = data.gameTags;
         let gameTagOutput = "";
 
@@ -41,8 +44,7 @@ const CopyToClipboard = ({ data }) => {
         // Remove the input element from the DOM
         document.body.removeChild(tempInput);
 
-        // Update button class to trigger transition effect
-        setButtonClass('btn btn-outline-light');
+
 
         // Reset button class after 2 seconds to revert to original style
         setTimeout(() => {

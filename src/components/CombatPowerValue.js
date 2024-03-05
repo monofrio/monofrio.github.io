@@ -12,7 +12,7 @@ class CombatPowerValue extends React.Component {
 
     render() {
         return (
-            <div className="accordion" id="accordionCPrange">
+            <div className="accordion mt-3" id="accordionCPrange" >
                 <div className="accordion-item">
                     <h2 className="accordion-header">
                         <button className="accordion-button btn-warning" type="button" data-bs-toggle="collapse"
