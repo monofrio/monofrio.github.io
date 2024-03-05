@@ -22,7 +22,7 @@ const initialState = {
     xs: false,
     costume: false,
     traded: false,
-    purified: true,
+    purified: false,
     shadow: false
 };
 

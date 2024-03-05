@@ -4,13 +4,13 @@ import data from "../data/data.json";
 export default function Alerts(){
     const [isVisible, setIsVisible] = useState(true);
 
-    useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            setIsVisible(false);
-        }, 3000);
-
-        return () => clearTimeout(timeoutId);
-    }, []);
+    // useEffect(() => {
+    //     const timeoutId = setTimeout(() => {
+    //         setIsVisible(false);
+    //     }, 3000);
+    //
+    //     return () => clearTimeout(timeoutId);
+    // }, []);
 
     return (
         <div>

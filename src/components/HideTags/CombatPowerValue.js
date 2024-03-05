@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setCombatPower } from '../actions';
+import { setCombatPower } from '../../actions';
 
 class CombatPowerValue extends React.Component {
     handleChange = (event) => {
