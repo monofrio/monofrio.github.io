@@ -128,3 +128,17 @@ export const eventActive = (eventObject, time) => {
 
     return active;
 }
+
+export const copyContent = async (data) => {
+    try {
+        await navigator.clipboard.writeText(data);
+        /* Resolved - text copied to clipboard successfully */
+        return Promise.resolve();
+    } catch (err) {
+        console.error('Failed to copy: ', err);
+        /* Rejected - text failed to copy to the clipboard */
+        return Promise.reject(err);
+    }
+}
+
+

@@ -1,5 +1,6 @@
-import './utility'
+import {copyContent} from "../utils";
 import data from "../data/data.json";
+import Modal from "./Modal";
 
 function copySearchString (id) {
     let output = data.data[id]['search']
@@ -26,20 +27,6 @@ let copyTag = function(id){
     copyContent(output);
 }
 
-async function copyContent(data) {
-    let text = data;
-
-    try {
-        await navigator.clipboard.writeText(text);
-        console.log('Content copied to clipboard');
-        console.log('-- Value: ' + text)
-        /* Resolved - text copied to clipboard successfully */
-    } catch (err) {
-        console.error('Failed to copy: ', err);
-        /* Rejected - text failed to copy to the clipboard */
-    }
-}
-
 export default function SearchList(){
     return(
         <ul className="list-group">
@@ -49,8 +36,8 @@ export default function SearchList(){
                     <div className={"row"} >
                         <div className={"col"}>
                             <h4>{val.title} &nbsp;
-                                { (val.info === "")? "" :<><button type="button" className={"btn btn-outline-info btn-sm"} data-bs-toggle={"modal"} data-bs-target={"#Modal" + val.id }>i</button></>}
-                                {(val.tag === "")? "" : <><br/><button className={"btn btn-dark btn h6"} onClick={ () => copyTag(val.id) } >Tag: {val.tag}</button></> }
+                                {(val.info === "")? "" :<Modal info={val.info} id={val.id} title={val.title} pokemon={val.pokemon} buttonCopy={"i"}/>}
+                                {(val.tag === "")? "" : <><br/><button className={"btn btn-outline-light btn h6"} onClick={ () => copyTag(val.id) } >Tag: {val.tag}</button></> }
                             </h4>
                         </div>
                         <div className="col">
@@ -59,31 +46,10 @@ export default function SearchList(){
                             </div>
                         </div>
                     </div>
-                    { (val.info === "")? "" : <Modal val={val}/>}
                 </li>
             ))}
         </ul>
     )
 }
 
-function Modal( {val} ){
-    return(
-        <div className="modal fade" id={"Modal" + val.id} tabIndex="-1" aria-labelledby={val.id + "ModalLabel"} aria-hidden="true">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">{val.title}</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        { (val.info === "")? <p>No Information at this time</p> : <p>{val.info}</p> }
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-    )
-}
