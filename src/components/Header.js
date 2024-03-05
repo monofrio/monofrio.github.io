@@ -1,6 +1,6 @@
 export default function Header({title, version}){
     return (
-        <header>
+        <header className={"p-3"}>
             <h1>{title}</h1>
         </header>
     )
