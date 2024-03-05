@@ -60,14 +60,14 @@ function App() {
         <Alerts />
         <Header title={data.appInfo.title} />
 
-        <div className="accordion" id="accordionExample">
+        <div className="accordion" id="accordion1">
             <div className="accordion-item">
                 <h2 className="accordion-header ">
-                    <button className="accordion-button alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <button className="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                         Manage Search by hiding
                     </button>
                 </h2>
-                <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordion1">
                     <div className="accordion-body">
                         <CopyHideStringButton />
                         <hr />
@@ -87,7 +87,7 @@ function App() {
                         Pokemon Tag Manager
                     </button>
                 </h2>
-                <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordion1">
                     <div className="accordion-body">
                         <SearchList data={data.data} />
                     </div>
