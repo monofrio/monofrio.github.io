@@ -29,7 +29,7 @@ const CopyToClipboard = ({ data }) => {
             }
         });
 
-        const finalOutput = gameTagOutput + cpValueOutput + customGameTagsOutput;
+        const finalOutput = gameTagOutput + customGameTagsOutput + cpValueOutput;
 
         // Create a temporary input element
         const tempInput = document.createElement('input');
