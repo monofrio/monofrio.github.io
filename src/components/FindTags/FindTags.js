@@ -1,10 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateFindTags } from '../../actions';
-import CopyHideStringButton from "../HideTags/CopyHideStringButton";
-import HideTags from "../HideTags/GameTagsList";
-import CustomGameTagsList from "../HideTags/CustomGameTagsList";
-import CombatPowerValue from "../HideTags/CombatPowerValue";
 
 class FindTags extends React.Component {
     handleCheckboxChange = (event) => {
@@ -65,7 +61,7 @@ class FindTags extends React.Component {
             <div className="container">
                 <div id={"mainAlert"} className="alert alert-warning p-0 mt-0" role="alert">Under Testing</div>
                 <div className={"mb-3"}>
-                    <button className={'btn btn-light'} onClick={this.handleCopyButtonClick}>Copy Selected Tags</button>
+                    <button className={'btn btn-outline-light'} onClick={this.handleCopyButtonClick}>Copy Selected Tags</button>
                 </div>
                     <div className="accordion" id="accordion-find-tags">
                     {/* Render each category separately */}

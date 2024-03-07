@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 const CopyToClipboard = ({ data }) => {
-    const [buttonClass, setButtonClass] = useState('btn btn-light');
+    const [buttonClass, setButtonClass] = useState('btn btn-outline-light');
 
     const copyToClipboard = () => {
         // Update button class to trigger transition effect
@@ -46,10 +46,10 @@ const CopyToClipboard = ({ data }) => {
 
 
 
-        // Reset button class after 2 seconds to revert to original style
-        setTimeout(() => {
-            setButtonClass('btn btn-light');
-        }, 2000);
+        // // Reset button class after 2 seconds to revert to original style
+        // setTimeout(() => {
+        //     setButtonClass('btn btn-light');
+        // }, 2000);
     };
 
     return (
