@@ -3,6 +3,14 @@ import { connect } from 'react-redux';
 import { updateFindTags } from '../../actions';
 
 class FindTags extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            newCustomTag: '' // State to store the new custom tag
+        };
+    }
+
     handleCheckboxChange = (event) => {
         const { id, checked } = event.target;
         const tag = id.replace('findTags-btn-check-', ''); // Extract tag name from checkbox id
@@ -45,6 +53,26 @@ class FindTags extends React.Component {
             });
     };
 
+    handleNewCustomTagChange = (event) => {
+        this.setState({ newCustomTag: event.target.value }); // Update newCustomTag state with input value
+    };
+
+    handleAddCustomTagClick = () => {
+        const { newCustomTag } = this.state;
+        if (newCustomTag.trim() !== '') {
+            const updatedTags = {
+                ...this.props.findTags,
+                [newCustomTag]: {
+                    checked: false,
+                    name: newCustomTag,
+                    display_name: newCustomTag,
+                    category: 'Custom' // Assign category as 'Custom' for custom tags
+                }
+            };
+            this.props.updateFindTags(updatedTags); // Dispatch action to update game tags
+            this.setState({ newCustomTag: '' }); // Clear the input field after adding the custom tag
+        }
+    };
 
 
     render() {
@@ -61,18 +89,23 @@ class FindTags extends React.Component {
             <div className="container">
                 <div id={"mainAlert"} className="alert alert-warning p-0 mt-0" role="alert">Under Testing</div>
                 <div className={"mb-3"}>
-                    <button className={'btn btn-outline-light'} onClick={this.handleCopyButtonClick}>Copy Selected Tags</button>
+                    <button className={'btn btn-outline-light'} onClick={this.handleCopyButtonClick}>Copy Selected
+                        Tags
+                    </button>
                 </div>
-                    <div className="accordion" id="accordion-find-tags">
+                <div className="accordion" id="accordion-find-tags">
                     {/* Render each category separately */}
                     {Object.entries(categories).map(([category, tags]) => (
                         <div className="accordion-item" key={category}>
                             <h2 className="accordion-header ">
-                                <button className="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target={"#collapse-"+category} aria-expanded="false" aria-controls={"#collapse-"+category}>
+                                <button className="accordion-button collapsed alert alert-secondary" type="button"
+                                        data-bs-toggle="collapse" data-bs-target={"#collapse-" + category}
+                                        aria-expanded="false" aria-controls={"#collapse-" + category}>
                                     {category}
                                 </button>
                             </h2>
-                            <div id={"collapse-"+category} className="accordion-collapse collapse" data-bs-parent="#accordion-find-tags">
+                            <div id={"collapse-" + category} className="accordion-collapse collapse"
+                                 data-bs-parent="#accordion-find-tags">
                                 <div className="accordion-body">
                                     <aside className="row align-items-start">
                                         {tags.map(({tag, checked, display_name}) => (
@@ -94,11 +127,25 @@ class FindTags extends React.Component {
                             </div>
                         </div>
                     ))}
-                        <div className="alert alert-info mt-5 p-0">
-                            <small><strong>Coming Soon</strong>: Combat Power, IV's for attack, defence and health</small>
-                        </div>
+                </div>
+                <div className="row mt-3">
+                    <div className="col-8">
+                        <input
+                            type="text"
+                            placeholder="Enter new custom tag"
+                            value={this.state.newCustomTag}
+                            onChange={this.handleNewCustomTagChange} // Handle input change
+                        />
+                    </div>
+                    <div className="col-4">
+                        <button className="btn btn-primary" onClick={this.handleAddCustomTagClick}>Add Custom Tag
+                        </button>
                     </div>
                 </div>
+                <div className="alert alert-info mt-5 p-0">
+                    <small><strong>Coming Soon</strong>: Combat Power, IV's for attack, defence and health</small>
+                </div>
+            </div>
         );
     }
 
