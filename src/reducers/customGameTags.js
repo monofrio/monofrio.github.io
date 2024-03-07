@@ -1,13 +1,14 @@
 import { UPDATE_CUSTOM_GAME_TAGS } from '../actions';
 
 const initialState = {
-    "evolve": true,
+
     "12candy": true,
     "transfer": true,
     "purify": true,
     "trade": true,
     "showcase": true,
-    "pvp": true
+    "pvp": true,
+    "evol": true
 };
 
 const customGameTagsReducer = (state = initialState, action) => {

@@ -43,8 +43,8 @@
       "title": " Evolve for Free",
       "pokemon": "haunter, karrablast, machoke, phantump, pumpkaboo, Shelmet, Boldore, Graveler, Gurdurr, Kadabra",
       "search": "!favorite & !4* & traded",
-      "tag": "evolve",
-      "info": "When you trade a Pokemon, its evolution Candy cost is reduced to zero"
+      "tag": "evol",
+      "info": "When you trade a Pokemon, its evolution candy cost is reduced to zero"
     },
     {
       "id": "3",

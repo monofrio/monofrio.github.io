@@ -23,7 +23,8 @@ const initialState = {
     costume: false,
     traded: false,
     purified: false,
-    shadow: false
+    shadow: false,
+    evolve: false,
 };
 
 const gameTagsReducer = (state = initialState, action) => {
