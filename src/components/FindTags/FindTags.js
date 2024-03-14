@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateFindTags } from '../../actions';
+import CombatPowerValue from "./CombatPowerValue";
+import AttributeAppraisal from "./AttributeAppraisal";
 
 class FindTags extends React.Component {
 
@@ -39,7 +41,7 @@ class FindTags extends React.Component {
         }, {});
 
         // Create the final string by combining categories with commas and then joining with '&'
-        const finalString = Object.entries(groupedTags)
+        let finalString = Object.entries(groupedTags)
             .map(([category, tags]) => tags.join(', '))
             .join(' & ');
 
@@ -94,7 +96,8 @@ class FindTags extends React.Component {
                     </button>
                 </div>
                 <div className="accordion" id="accordion-find-tags">
-                    {/* Render each category separately */}
+
+                    {/** Render each category separately */}
                     {Object.entries(categories).map(([category, tags]) => (
                         <div className="accordion-item" key={category}>
                             <h2 className="accordion-header ">
@@ -127,23 +130,72 @@ class FindTags extends React.Component {
                             </div>
                         </div>
                     ))}
-                </div>
-                <div className="row mt-3">
-                    <div className="col-8">
-                        <input
-                            type="text"
-                            placeholder="Enter new custom tag"
-                            value={this.state.newCustomTag}
-                            onChange={this.handleNewCustomTagChange} // Handle input change
-                        />
+
+                    { /** Custom Tags */}
+                    <div className="accordion-item" key={"customTags"}>
+                        <h2 className="accordion-header ">
+                            <button className="accordion-button collapsed alert alert-secondary" type="button"
+                                    data-bs-toggle="collapse" data-bs-target={"#collapse-customTags"}
+                                    aria-expanded="false" aria-controls={"#collapse-customTags"}>
+                                Add Custom Tags
+                            </button>
+                        </h2>
+                        <div id={"collapse-customTags"} className="accordion-collapse collapse"
+                             data-bs-parent="#accordion-find-tags">
+                            <div className="accordion-body">
+                                <div className="row mt-3">
+                                    <div className="col-8">
+                                        <input
+                                            type="text"
+                                            placeholder="Enter new custom tag"
+                                            value={this.state.newCustomTag}
+                                            onChange={this.handleNewCustomTagChange} // Handle input change
+                                        />
+                                    </div>
+                                    <div className="col-4">
+                                        <button className="btn btn-primary" onClick={this.handleAddCustomTagClick}>
+                                            Add Custom Tag
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="col-4">
-                        <button className="btn btn-primary" onClick={this.handleAddCustomTagClick}>Add Custom Tag
-                        </button>
+
+                    { /** Combat Power */}
+                    <div className="accordion-item" key={"combatPower"}>
+                        <h2 className="accordion-header ">
+                            <button className="accordion-button collapsed alert alert-secondary" type="button"
+                                    data-bs-toggle="collapse" data-bs-target={"#collapse-combatPower"}
+                                    aria-expanded="false" aria-controls={"#collapse-combatPower"}>
+                                Combat Power
+                            </button>
+                        </h2>
+                        <div id={"collapse-combatPower"} className="accordion-collapse collapse"
+                             data-bs-parent="#accordion-find-tags">
+                            <div className="accordion-body">
+                                <CombatPowerValue />
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div className="alert alert-info mt-5 p-0">
-                    <small><strong>Coming Soon</strong>: Combat Power, IV's for attack, defence and health</small>
+
+                    { /** Attribute Appraisal */}
+                    <div className="accordion-item" key={"attributeAppraisal"}>
+                        <h2 className="accordion-header ">
+                            <button className="accordion-button collapsed alert alert-secondary" type="button"
+                                    data-bs-toggle="collapse" data-bs-target={"#collapse-attributeAppraisal"}
+                                    aria-expanded="false" aria-controls={"#collapse-attributeAppraisal"}>
+                                Attribute Appraisal Component
+                            </button>
+                        </h2>
+                        <div id={"collapse-attributeAppraisal"} className="accordion-collapse collapse"
+                             data-bs-parent="#accordion-find-tags">
+                            <div className="accordion-body">
+                                <AttributeAppraisal />
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         );
