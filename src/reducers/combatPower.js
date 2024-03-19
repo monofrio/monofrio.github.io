@@ -1,7 +1,8 @@
 const initialState = {
     combatPowerMax: 5000,
     combatPowerMin: 10,
-    includeCombatPower: false
+    includeCombatPower: false,
+    finalCPString: "CP10"
 };
 
 const combatPowerReducer = (state = initialState, action) => {
@@ -19,7 +20,12 @@ const combatPowerReducer = (state = initialState, action) => {
         case "SET_INCLUDE_COMBAT_POWER":
             return {
                 ...state,
-                includeCombatPower: state.payload
+                includeCombatPower: action.payload
+            }
+        case "SET_FINAL_CP":
+            return {
+                ...state,
+                finalCPString: action.payload
             }
         default:
             return state;

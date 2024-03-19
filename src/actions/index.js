@@ -6,6 +6,12 @@ export const UPDATE_FIND_TAGS = "UPDATE_FIND_TAGS";
 export const SET_COMBAT_POWER_MIN = "SET_COMBAT_POWER_MIN";
 export const SET_COMBAT_POWER_MAX = "SET_COMBAT_POWER_MAX";
 export const SET_INCLUDE_COMBAT_POWER = "SET_INCLUDE_COMBAT_POWER";
+export const SET_FINAL_CP = "SET_FINAL_CP";
+
+export const TOGGLE_ATTRIBUTE = "TOGGLE_ATTRIBUTE";
+
+export const SET_INCLUDE_ATTRIBUTE_APPRAISAL = "SET_INCLUDE_ATTRIBUTE_APPRAISAL"
+
 
 // Action creators
 export const setCombatPower = (power) => ({
@@ -37,8 +43,22 @@ export const setCombatPowerRangeMax = (range) => ({
     payload: range
 });
 
-export const setIncludeCombatPower = (checkbox) => ({
+export const setIncludeCombatPower = (value) => ({
     type: SET_INCLUDE_COMBAT_POWER,
-    payload: checkbox
+    payload: value
 });
 
+export const setFinalCP = (value) => ({
+    type: SET_FINAL_CP,
+    payload: value
+});
+
+export const toggleAttribute = (attribute) => ({
+    type: TOGGLE_ATTRIBUTE,
+    payload: attribute,
+});
+
+export const setIncludeAttribute = (checked) => ({
+    type: SET_INCLUDE_ATTRIBUTE_APPRAISAL,
+    payload: checked
+})

@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import './components/Alerts';
 import { Helmet } from 'react-helmet';
@@ -8,8 +9,8 @@ import Footer from "./components/Footer";
 import SearchList from "./components/SearchList";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { Provider } from 'react-redux';
-import store from './store';
+import { connect } from 'react-redux';
+
 
 // import CombatPowerValue from "./components/FindTags/CombatPowerValue";
 import HideTags from "./components/HideTags/GameTagsList";
@@ -17,20 +18,17 @@ import CopyHideStringButton from "./components/HideTags/CopyHideStringButton";
 import CustomGameTagsList from "./components/HideTags/CustomGameTagsList";
 import FindTags from "./components/FindTags/FindTags";
 
-function App() {
-
-  return (
-    <div className="App">
-        <Provider store={store}>
-
-        <Helmet>
-            <title>{data.appInfo.title}</title>
-            <meta name="description" content="Best way to manage your pokemon with pre-made search scripts. See upcoming Events and Raids" />
-        </Helmet>
-
-        <Header title={data.appInfo.title} />
-
-        <div className="accordion" id="accordion1">
+class App extends React.Component {
+    render() {
+        const { combatPowerMin, combatPowerMax, finalCPString } = this.props;
+        return (
+            <div className="App">
+                <Helmet>
+                    <title>{data.appInfo.title}</title>
+                    <meta name="description" content="Best way to manage your pokemon with pre-made search scripts. See upcoming Events and Raids" />
+                </Helmet>
+                <Header title={data.appInfo.title} />
+                <div className="accordion" id="accordion1">
 
             {/*<div className="accordion-item">*/}
             {/*    <h2 className="accordion-header ">*/}
@@ -50,18 +48,18 @@ function App() {
             {/*    </div>*/}
             {/*</div>*/}
 
-            <div className="accordion-item">
-                <h2 className="accordion-header">
-                    <button className="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                        Build Search
-                    </button>
-                </h2>
-                <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordion1">
-                    <div className="accordion-body">
+            {/*<div className="accordion-item">*/}
+            {/*    <h2 className="accordion-header">*/}
+            {/*        <button className="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">*/}
+            {/*            Build Search*/}
+            {/*        </button>*/}
+            {/*    </h2>*/}
+            {/*    <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordion1">*/}
+            {/*        <div className="accordion-body">*/}
                         <FindTags />
-                    </div>
-                </div>
-            </div>
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
 
             {/*<div className="accordion-item">*/}
             {/*    <h2 className="accordion-header">*/}
@@ -77,12 +75,16 @@ function App() {
             {/*</div>*/}
 
 
-        </div>
-        <Footer appInfo={data.appInfo} />
-
-        </Provider>
-    </div>
-  );
+                </div>
+                <Footer appInfo={data.appInfo} />
+            </div>
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    combatPowerMin: state.combatPower.combatPowerMin,
+    combatPowerMax: state.combatPower.combatPowerMax,
+});
+
+export default connect(mapStateToProps)(App);
