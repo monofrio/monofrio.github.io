@@ -26,16 +26,25 @@ By automating this process, the Pokémon GO Search Tool helps players save time,
 This project utilizes the following technologies:
 
 ### Frontend
-- **React**: A JavaScript library for building the user interface. React's component-based architecture makes the application highly modular and maintainable.
-- **CSS Modules**: Used for styling the application to ensure scoped and reusable styles across components.
+- **React** (v18.3.1): A JavaScript library for building user interfaces. React's component-based architecture ensures a highly modular and maintainable application.
+- **Redux Toolkit** (@reduxjs/toolkit v2.2.1): Simplifies state management and integrates seamlessly with React-Redux (v9.1.0).
+- **Redux** (v5.0.1): Provides predictable state management for complex applications.
+- **React Bootstrap** (v2.9.1) and **Bootstrap** (v5.3.2): Enable rapid UI development with responsive design components.
+- **React Helmet Async** (v2.0.5): Manages document head tags for SEO optimization and dynamic metadata.
+- **SASS** (v1.71.1): Enhances styling with advanced features like nesting and mixins.
 
 ### Development Tools
-- **Vite**: A fast build tool and development server that improves performance and offers a smooth development experience.
-- **ESLint**: For maintaining code quality and enforcing best practices.
-- **Prettier**: For consistent code formatting across the project.
+- **React-Scripts** (v5.0.1): Provides essential build scripts and tools for developing and deploying the app.
+- **Jest** (v29.7.0): Testing framework for ensuring code quality and reliability.
+- **Testing Library**:
+   - **@testing-library/react** (v15.0.7): Facilitates testing React components.
+   - **@testing-library/jest-dom** (v6.4.5): Adds custom Jest matchers for DOM testing.
+   - **@testing-library/user-event** (v14.5.2): Simulates user interactions for testing.
+- **Regexpu-Core** (v6.0.0): Enables working with Unicode regular expressions.
+- **Web Vitals** (v2.1.4): Measures app performance metrics like First Contentful Paint and Largest Contentful Paint.
 
 ### Deployment
-- **GitHub Pages**: The tool is deployed via GitHub Pages for free and accessible hosting.
+- **GitHub Pages**: The app is configured to deploy via GitHub Pages for free and accessible hosting.
 
 ---
 

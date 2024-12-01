@@ -85,6 +85,31 @@ const initialState = {
             display_name: "Mythical",
             category: "Generic"
         },
+        dynamax: {
+            checked: "inactive",
+            name: "dynamax",
+            display_name: "Dynamax",
+            category: "Generic"
+        },
+        gigantamax: {
+            checked: 'inactive',
+            name: 'gigantamax',
+            display_name: "Gigantamax",
+            category: "Generic"
+        },
+
+        specialbackground : {
+            checked: "inactive",
+            name: "specialbackground",
+            display_name: "Special Background",
+            category: "Generic"
+        },
+        locationbackground : {
+            checked: "inactive",
+            name: "locationbackground",
+            display_name: "Location Background",
+            category: "Generic"
+        },
         xl: {
             checked: "inactive",
             name: 'xl',
