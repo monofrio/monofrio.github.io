@@ -4,36 +4,45 @@ import {
     setCombatPowerRangeMin,
     setCombatPowerRangeMax,
     setIncludeCombatPower,
-    setFinalCP
+    setFinalCP,
+    toggleDisableMaxInputCombat,
+    toggleDisableMinInputCombat,
+    toggleLessThanCombat,
+    toggleGreaterThanCombat,
+    toggleLessThanInput,
+    toggleHideCP
 } from '../../actions';
 
 class CombatPowerValue extends React.Component
 {
-    constructor(props) {
-        super(props);
-        this.state = {
-            disableMaxInput: true,
-            disableMinInput: true,
-
-            greaterThan: false,
-            lessThan: false,
-        };
-
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     componentDidMount() {
-        this.hideLessthan();
+        this.disableLessThan();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.finalString()
     }
 
     handleMinChange = (event) => {
         const minValue = parseInt(event.target.value);
-        const { combatPowerMax, setCombatPowerRangeMin } = this.props;
+
+        let { combatPowerMax,
+            setCombatPowerRangeMin,
+            disableMaxInput,
+        } = this.props;
+
+
         if (!isNaN(minValue) && minValue <= combatPowerMax) {
             setCombatPowerRangeMin(minValue);
             this.finalString()
-            this.hideLessthan()
         }
-
+        if( disableMaxInput ){
+            this.disableLessThan()
+        }
     };
     handleMaxChange = (event) => {
         const maxValue = parseInt(event.target.value);
@@ -48,73 +57,132 @@ class CombatPowerValue extends React.Component
         const { includeCombatPower, setIncludeCombatPower } = this.props;
         setIncludeCombatPower(!includeCombatPower); // Toggle includeCombatPower
 
-        this.hideLessthan()
+        this.disableLessThan()
+        // this.finalString()
     };
+
     handleToggleDisableMax = () => {
-        this.setState(prevState => ({
-            disableMaxInput: !prevState.disableMaxInput,
-            greaterThanLessThan: !prevState.greaterThanLessThan
-        }));
-        if(this.state.greaterThan || this.state.lessThan){
-            this.setState(() => ({
-                lessThan: false,
-                greaterThan: false
-            }));
+        const {
+            disableMaxInput,
+            // disableLessThanInput,
+            toggleDisableMaxInputCombat,
+            // toggleDisableMinInputCombat,
+            toggleLessThanCombat,
+            toggleGreaterThanCombat,
+            greaterThan,
+            lessThan
+        } = this.props
+
+        toggleDisableMaxInputCombat(!disableMaxInput)
+        this.disableLessThan()
+
+        if( greaterThan || lessThan ){
+            toggleGreaterThanCombat(false)
+            toggleLessThanCombat(false)
         }
 
-        this.finalString()
+        // this.finalString()
     };
-    hideLessthan = () => {
+    disableLessThan = () => {
+        let {
+            // disableMaxInput,
+            combatPowerMin,
+            toggleDisableMinInputCombat,
+            // toggleDisableMaxInputCombat,
+            // toggleLessThanCombat,
+            toggleLessThanInput
+        } = this.props
 
-        if( this.props.combatPowerMin === 10 ) {
-            this.setState(() => ({
-                disableMinInput: false
-            }))
-        } else if ( this.props.combatPowerMin > 10 || this.state.disableMaxInput ) {
-            this.setState( () => ({
-                disableMinInput: true
-            }))
+        if( combatPowerMin === 10 ) {
+            toggleDisableMinInputCombat( true )
+
+            toggleLessThanInput(false)
+
+            // console.log("Combat Power = 10")
         }
+        else if ( combatPowerMin > 10 ) {
+            // console.log("Combat Power > 10")
+            toggleLessThanInput(true)
+
+        }
+        // this.finalString()
     }
     handleLessThan = () => {
-        const { setFinalCP } = this.props
-        if(this.props.combatPowerMin === 10){
+        const {
+            // setFinalCP,
+            combatPowerMin,
+            toggleLessThanCombat,
+            lessThan,
+            toggleGreaterThanCombat,
+            toggleDisableMinInputCombat,
 
-            console.log("Equal to 10, can not be less than")
+        } = this.props
+
+        if(combatPowerMin === 10){
+            toggleLessThanCombat(false)
+            toggleDisableMinInputCombat(false)
+
+            // console.log("Equal to 10, can not be less than")
 
         } else {
-            this.setState(prevState => ({
-                lessThan: !prevState.lessThan,
-                greaterThan: false
-            }));
+            toggleLessThanCombat(!lessThan)
+            toggleGreaterThanCombat(false)
         }
 
-        this.finalString()
+        // this.finalString()
     };
     handleGreaterThan = () => {
-        const { setFinalCP } = this.props;
-        this.setState(prevState => ({
-            greaterThan: !prevState.greaterThan,
-            lessThan: false
-        }))
-        this.finalString()
+        const {
+            // setFinalCP,
+            toggleLessThanCombat,
+            // lessThan,
+            greaterThan,
+            toggleGreaterThanCombat,  } = this.props;
+
+        toggleLessThanCombat(false);
+        toggleGreaterThanCombat(!greaterThan);
+
+        // this.finalString()
+    };
+
+    hideCombatePower = () => {
+        const {toggleHideCP, hideCP } = this.props;
+        toggleHideCP(!hideCP); // Toggle the hide state
+        // this.finalString()
     };
     finalString  = () => {
-        const { disableMaxInput } = this.state;
-        const { combatPowerMin, combatPowerMax, setFinalCP} = this.props;
-        const lessThan = this.state.lessThan;
-        const greaterThan = this.state.greaterThan;
+        const { combatPowerMin, combatPowerMax, setFinalCP, disableMaxInput, hideCP} = this.props;
 
-        const cpMin =  !disableMaxInput ? combatPowerMin : lessThan ? "-" + combatPowerMin : greaterThan ? combatPowerMin + "-" : combatPowerMin;
+        const lessThan = this.props.lessThan;
+        const greaterThan = this.props.greaterThan;
+
+        const cpMin =  !disableMaxInput
+            ? combatPowerMin
+            : lessThan
+                ? "-" + combatPowerMin
+                : greaterThan
+                    ? combatPowerMin + "-"
+                    : combatPowerMin;
         const cpMax = disableMaxInput ? "" : "-" + combatPowerMax;
-        const finalString = "CP" + cpMin + cpMax;
+
+        const finalString = `${hideCP?"!":""}CP${cpMin}${cpMax}`;
+
         setFinalCP( finalString )
+
         return finalString
     }
 
     render() {
-        const { combatPowerMin, combatPowerMax, includeCombatPower } = this.props;
-        const { disableMaxInput, lessThan, greaterThan, disableMinInput } = this.state;
+        const {
+            combatPowerMin,
+            combatPowerMax,
+            includeCombatPower,
+            disableMaxInput,
+            lessThan,
+            greaterThan,
+            disableLessThanInput,
+            hideCP
+        } = this.props;
 
         return (
             <div className="container">
@@ -122,52 +190,59 @@ class CombatPowerValue extends React.Component
                     <div className="col">
 
                         {/** Activate */}
-                        <input
-                            className="btn-check"
-                            id="includeCombatPowerCheckbox"
-                            onChange={ this.handleIncludeCombatPowerChange }
-                            type="checkbox"
-                            name="activateCP"
-                            checked={ includeCombatPower }
-                        />
-                        <label className="btn btn-outline-primary" htmlFor="includeCombatPowerCheckbox">
-                            { includeCombatPower ? 'Deactivate' : 'Activate' }
-                        </label>
+                        <>
+                            <input
+                                className="btn-check"
+                                id="includeCombatPowerCheckbox"
+                                onChange={ this.handleIncludeCombatPowerChange }
+                                type="checkbox"
+                                name="activateCP"
+                                checked={ includeCombatPower }
+                            />
+                            <label className="btn btn-outline-primary" htmlFor="includeCombatPowerCheckbox">
+                                Include
+                            </label>
+                        </>
                         &nbsp;
 
                         { /** Toggle: Enable/Disable Max Range */}
-                        <input
-                            className="btn-check"
-                            id="disableMaxCP"
-                            onChange={ this.handleToggleDisableMax }
-                            type="checkbox"
-                            name="disableMaxCP"
-                            checked={ !disableMaxInput }
-                            disabled={ !includeCombatPower }
-                        />
-                        <label className="btn btn-outline-primary" htmlFor="disableMaxCP">
-                            {disableMaxInput ? 'Enable Max' : 'Disable Max'}
-                        </label>
+                        <>
+                            <input
+                                className="btn-check"
+                                id="disableMaxCP"
+                                onChange={ this.handleToggleDisableMax }
+                                type="checkbox"
+                                name="disableMaxCP"
+                                checked={ !disableMaxInput }
+                                disabled={ !includeCombatPower }
+                            />
+                            <label className="btn btn-outline-primary" htmlFor="disableMaxCP">
+                                {disableMaxInput ? 'Enable Max' : 'Disable Max'}
+                            </label>
+                        </>
                         &nbsp;
 
                         { /** Toggle: Less Range */}
-                        <input
-                            className="btn-check"
-                            id="handleLessThan"
-                            name="handleLessThan"
-                            onChange={this.handleLessThan }
-                            type="checkbox"
-                            checked={lessThan}
-                            disabled={ !includeCombatPower  || !disableMinInput }
-                        />
-                        <label
-                            className="btn btn-outline-primary" htmlFor="handleLessThan"
-                        >
-                            Less Than
-                        </label>
+                        <>
+                            <input
+                                className="btn-check"
+                                id="handleLessThan"
+                                name="handleLessThan"
+                                onChange={this.handleLessThan }
+                                type="checkbox"
+                                checked={lessThan}
+                                disabled={ !disableLessThanInput }
+                            />
+                            <label
+                                className="btn btn-outline-primary" htmlFor="handleLessThan"
+                            >
+                                Less Than
+                            </label>
+                        </>
                         &nbsp;
 
                         { /** Greater Than */}
+                        <>
                         <input
                             className="btn-check"
                             id="handleGreaterThan"
@@ -183,19 +258,39 @@ class CombatPowerValue extends React.Component
                         >
                             Greater Than
                         </label>
+                        </>
+
+                        { /** Hide */}
+                        <>
+                            <input
+                                className="btn-check"
+                                id="hideCombatePower"
+                                name="hideCombatePower"
+                                onChange={this.hideCombatePower}
+                                type="checkbox"
+                                checked={hideCP}
+                                disabled={!includeCombatPower}
+                            />
+                            <label
+                                className="btn btn-outline-danger"
+                                htmlFor="hideCombatePower"
+                            >
+                                Hide
+                            </label>
+                        </>
 
                         <br/>
                         <div className={'d-inline-flex'}>
-                        <input
-                            type="input"
-                            className="form-control mt-4"
-                            value={combatPowerMin}
-                            onChange={ this.handleMinChange }
-                            disabled={!includeCombatPower }
-                        />
+                            <input
+                                type="number"
+                                className="form-control mt-4"
+                                value={combatPowerMin}
+                                onChange={this.handleMinChange}
+                                disabled={!includeCombatPower}
+                            />
 
-                        <input
-                            type="input"
+                            <input
+                            type="number"
                             className="form-control mt-4"
                             value={combatPowerMax}
                             onChange={ this.handleMaxChange }
@@ -206,10 +301,6 @@ class CombatPowerValue extends React.Component
                 </div>
 
                 <div className="row align-items-center">
-
-                    <h2 className="pt-3 pb-3">
-                        {this.finalString()}
-                    </h2>
                     <div className="col">
                         <label htmlFor="minCombatPowerRange" className="form-label">
                             Min
@@ -217,7 +308,7 @@ class CombatPowerValue extends React.Component
                         <input
                             type="range"
                             className="form-range"
-                            min="0"
+                            min="10"
                             max="6000"
                             step="10"
                             value={combatPowerMin}
@@ -231,7 +322,7 @@ class CombatPowerValue extends React.Component
                                 <input
                                     type="range"
                                     className="form-range"
-                                    min="0"
+                                    min="10"
                                     max="6000"
                                     step="10"
                                     value={combatPowerMax}
@@ -252,14 +343,28 @@ const mapStateToProps = (state) => ({
     combatPowerMin: state.combatPower.combatPowerMin,
     combatPowerMax: state.combatPower.combatPowerMax,
     includeCombatPower: state.combatPower.includeCombatPower,
-    finalCPString: state.combatPower.finalCPString
+    finalCPString: state.combatPower.finalCPString,
+
+    disableMaxInput: state.combatPower.disableMaxInput,
+    disableLessThanInput: state.combatPower.disableLessThanInput,
+
+    greaterThan: state.combatPower.greaterThan,
+    lessThan: state.combatPower.lessThan,
+
+    hideCP: state.combatPower.hideCP,
 });
 
 const mapDispatchToProps = {
     setCombatPowerRangeMin,
     setCombatPowerRangeMax,
     setIncludeCombatPower,
-    setFinalCP
+    setFinalCP,
+    toggleDisableMaxInputCombat,
+    toggleDisableMinInputCombat,
+    toggleLessThanCombat,
+    toggleGreaterThanCombat,
+    toggleLessThanInput,
+    toggleHideCP,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CombatPowerValue);

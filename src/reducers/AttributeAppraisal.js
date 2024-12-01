@@ -1,10 +1,20 @@
-import {SET_INCLUDE_ATTRIBUTE_APPRAISAL, TOGGLE_ATTRIBUTE} from '../actions';
+import { SET_INCLUDE_ATTRIBUTE_APPRAISAL, TOGGLE_ATTRIBUTE, SET_ATTRIBUTE_APPRAISAL, SET_FINAL_APPRAISAL_STRING } from '../actions';
 
 const initialState = {
     attackActive: false,
     defenseActive: false,
     hpActive: false,
+
     includeAttribute: false,
+
+    attackAttribute: null,
+    defenseAttribute: null,
+    hpAttribute: null,
+
+    selectedButtons: [],
+
+    finalAttribute: ""
+
 };
 
 const attributeAppraisalReducer = (state = initialState, action) => {
@@ -17,8 +27,20 @@ const attributeAppraisalReducer = (state = initialState, action) => {
         case SET_INCLUDE_ATTRIBUTE_APPRAISAL:
             return {
                 ...state,
-                includeAttribute: action.payload
+                includeAttribute: action.payload,
             };
+        case SET_ATTRIBUTE_APPRAISAL:
+            return {
+                ...state,
+                selectedButtons: action.payload,
+
+            };
+        case SET_FINAL_APPRAISAL_STRING:
+            return {
+                ...state,
+                finalAttribute: action.payload,
+            }
+
         default:
             return state;
     }

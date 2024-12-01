@@ -2,373 +2,373 @@ import { UPDATE_FIND_TAGS } from '../actions';
 
 const initialState = {
         "4*": {
-            checked: false,
+            checked: 'inactive',
             name: '4*',
             display_name: "Perfect",
             category: "Star"
         },
         '3*': {
-            checked: false,
+            checked: "inactive",
             name: '3*',
             display_name: "3 Star",
             category: "Star"
         },
         '2*': {
-            checked: false,
+            checked: "inactive",
             name: '2*',
             display_name: "2 Star",
             category: "Star"
         },
         '1*': {
-            checked: false,
+            checked: "inactive",
             name: '1*',
             display_name: "1 Star",
             category: "Star"
         },
         '0*': {
-            checked: false,
+            checked: "inactive",
             name: '0*',
             display_name: "0 Star",
             category: "Star"
         },
         favorite: {
-            checked: false,
+            checked: "inactive",
             name: 'favorite',
             display_name: "Favorite",
             category: "Generic"
         },
         'buddy1-5': {
-            checked: false,
+            checked: "inactive",
             name: 'buddy1-5',
             display_name: "Buddies",
             category: "Generic"
         },
         shiny: {
-            checked: false,
+            checked: "inactive",
             name: 'shiny',
             display_name: "Shiny",
             category: "Shiny"
         },
         lucky: {
-            checked: false,
+            checked: "inactive",
             name: 'lucky',
             display_name: "Lucky",
             category: "Generic"
         },
         'ultra beasts': {
-            checked: false,
+            checked: "inactive",
             name: 'ultra beasts',
             display_name: "Ultra Beast",
             category: "Generic"
         },
         adventureeffect: {
-            checked: false,
+            checked: "inactive",
             name: 'adventureeffect',
             display_name: "Adventure Effect",
             category: "Generic"
         },
         tradeevolve: {
-            checked: false,
+            checked: "inactive",
             name: 'tradeevolve',
             display_name: "Trade Evolve",
             category: "Generic"
         },
         legendary: {
-            checked: false,
+            checked: "inactive",
             name: 'legendary',
             display_name: "Legendary",
             category: "Generic"
         },
         mythical: {
-            checked: false,
+            checked: "inactive",
             name: 'mythical',
             display_name: "Mythical",
             category: "Generic"
         },
         xl: {
-            checked: false,
+            checked: "inactive",
             name: 'xl',
             display_name: "XL",
             category: "Size"
         },
         xxl: {
-            checked: false,
+            checked: "inactive",
             name: 'xxl',
             display_name: "XXL",
             category: "Size"
         },
         xxs: {
-            checked: false,
+            checked: "inactive",
             name: 'xxs',
             display_name: "XXS",
             category: "Size"
         },
         xs: {
-            checked: false,
+            checked: "inactive",
             name: 'xs',
             display_name: "XS",
             category: "Size"
         },
         costume: {
-            checked: false,
+            checked: "inactive",
             name: 'costume',
             display_name: "Costume",
             category: "Generic"
         },
         traded: {
-            checked: false,
+            checked: "inactive",
             name: 'traded',
             display_name: "Traded",
             category: "Generic"
         },
         evolve:{
-            checked: false,
+            checked: "inactive",
             name: 'evolve',
             display_name: "Evolve",
             category: "Generic"
         },
         megaevolve:{
-            checked: false,
+            checked: "inactive",
             name: 'megaevolve',
             display_name: "Mega Evolve",
             category: "Generic"
         },
         purified: {
-            checked: false,
+            checked: "inactive",
             name: 'purified',
             display_name: "Purified",
             category: "Generic"
         },
         shadow: {
-            checked: false,
+            checked: "inactive",
             name: 'shadow',
             display_name: "Shadow",
             category: "Generic"
         },
         hatched: {
-            checked: false,
+            checked: "inactive",
             name: 'hatched',
             display_name: "Hatched",
             category: "Generic"
         },
         year2016: {
-            checked: false,
+            checked: "inactive",
             name: 'year2016',
             display_name: "2016",
             category: "Year"
         },
         year2017: {
-            checked: false,
+            checked: "inactive",
             name: 'year2017',
             display_name: "2017",
             category: "Year"
         },
         year2018: {
-            checked: false,
+            checked: "inactive",
             name: 'year2018',
             display_name: "2018",
             category: "Year"
         },
         year2019: {
-            checked: false,
+            checked: "inactive",
             name: 'year2019',
             display_name: "2019",
             category: "Year"
         },
         year2020: {
-            checked: false,
+            checked: "inactive",
             name: 'year2020',
             display_name: "2020",
             category: "Year"
         },
         year2021: {
-            checked: false,
+            checked: "inactive",
             name: 'year2021',
             display_name: "2021",
             category: "Year"
         },
         year2022: {
-            checked: false,
+            checked: "inactive",
             name: 'year2022',
             display_name: "2022",
             category: "Year"
         },
         year2023: {
-            checked: false,
+            checked: "inactive",
             name: 'year2023',
             display_name: "2023",
             category: "Year"
         },
         year2024: {
-            checked: false,
+            checked: "inactive",
             name: 'year2024',
             display_name: "2024",
             category: "Year"
         },
         kanto: {
-            checked: false,
+            checked: "inactive",
             name: 'kanto',
             display_name: "Kanto",
             category: "Region"
         },
         johto: {
-            checked: false,
+            checked: "inactive",
             name: 'johto',
             display_name: "Johto",
             category: "Region"
         },
         hoenn: {
-            checked: false,
+            checked: "inactive",
             name: 'hoenn',
             display_name: "Hoenn",
             category: "Region"
         },
         sinnoh: {
-            checked: false,
+            checked: "inactive",
             name: 'sinnoh',
             display_name: "Sinnoh",
             category: "Region"
         },
         unova: {
-            checked: false,
+            checked: "inactive",
             name: 'unova',
             display_name: "Unova",
             category: "Region"
         },
         kalos: {
-            checked: false,
+            checked: "inactive",
             name: 'kalos',
             display_name: "Kalos",
             category: "Region"
         },
         alola: {
-            checked: false,
+            checked: "inactive",
             name: 'alola',
             display_name: "Alola",
             category: "Region"
         },
         galar: {
-            checked: false,
+            checked: "inactive",
             name: 'galar',
             display_name: "Galar",
             category: "Region"
         },
         hisui: {
-            checked: false,
+            checked: "inactive",
             name: 'hisui',
             display_name: "Hisui",
             category: "Region"
         },
         paldea: {
-            checked: false,
+            checked: "inactive",
             name: 'paldea',
             display_name: "Paldea",
             category: "Region"
         },
     normal: {
-        checked: false,
+        checked: "inactive",
         name: "normal",
         display_name: "Normal",
         category: "Type"
     },
     fire: {
-        checked: false,
+        checked: "inactive",
         name: "fire",
         display_name: "Fire",
         category: "Type"
     },
     water: {
-        checked: false,
+        checked: "inactive",
         name: "water",
         display_name: "Water",
         category: "Type"
     },
     electric: {
-        checked: false,
+        checked: "inactive",
         name: "electric",
         display_name: "Electric",
         category: "Type"
     },
     grass: {
-        checked: false,
+        checked: "inactive",
         name: "grass",
         display_name: "Grass",
         category: "Type"
     },
     ice: {
-        checked: false,
+        checked: "inactive",
         name: "ice",
         display_name: "Ice",
         category: "Type"
     },
     fighting: {
-        checked: false,
+        checked: "inactive",
         name: "fighting",
         display_name: "Fighting",
         category: "Type"
     },
     poison: {
-        checked: false,
+        checked: "inactive",
         name: "poison",
         display_name: "Poison",
         category: "Type"
     },
     ground: {
-        checked: false,
+        checked: "inactive",
         name: "ground",
         display_name: "Ground",
         category: "Type"
     },
     flying: {
-        checked: false,
+        checked: "inactive",
         name: "flying",
         display_name: "Flying",
         category: "Type"
     },
     psychic: {
-        checked: false,
+        checked: "inactive",
         name: "psychic",
         display_name: "Psychic",
         category: "Type"
     },
     bug: {
-        checked: false,
+        checked: "inactive",
         name: "bug",
         display_name: "Bug",
         category: "Type"
     },
     rock: {
-        checked: false,
+        checked: "inactive",
         name: "rock",
         display_name: "Rock",
         category: "Type"
     },
     ghost: {
-        checked: false,
+        checked: "inactive",
         name: "ghost",
         display_name: "Ghost",
         category: "Type"
     },
     dragon: {
-        checked: false,
+        checked: "inactive",
         name: "dragon",
         display_name: "Dragon",
         category: "Type"
     },
     dark: {
-        checked: false,
+        checked: "inactive",
         name: "dark",
         display_name: "Dark",
         category: "Type"
     },
     steel: {
-        checked: false,
+        checked: "inactive",
         name: "steel",
         display_name: "Steel",
         category: "Type"
     },
     fairy: {
-        checked: false,
+        checked: "inactive",
         name: "fairy",
         display_name: "Fairy",
         category: "Type"

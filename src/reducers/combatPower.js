@@ -2,7 +2,16 @@ const initialState = {
     combatPowerMax: 5000,
     combatPowerMin: 10,
     includeCombatPower: false,
-    finalCPString: "CP10"
+    hideCP: false,
+    finalCPString: "CP10",
+
+    disableMaxInput: true,
+    disableMinInput: true,
+
+    greaterThan: false,
+    lessThan: false,
+
+    disableLessThanInput: false,
 };
 
 const combatPowerReducer = (state = initialState, action) => {
@@ -26,6 +35,36 @@ const combatPowerReducer = (state = initialState, action) => {
             return {
                 ...state,
                 finalCPString: action.payload
+            }
+        case "TOGGLE_DISABLE_MAX_INPUT":
+            return {
+                ...state,
+                disableMaxInput: action.payload
+            }
+        case "TOGGLE_DISABLE_MIN_INPUT":
+            return {
+                ...state,
+                disableMinInput: action.payload
+            }
+        case "TOGGLE_LESS_THAN_COMBAT":
+            return {
+                ...state,
+                lessThan: action.payload
+            }
+        case "TOGGLE_GREATER_THAN_COMBAT":
+            return {
+                ...state,
+                greaterThan: action.payload
+            }
+        case "DISABLE_LESS_THAN":
+            return {
+                ...state,
+                disableLessThanInput: action.payload
+            }
+        case "TOGGLE_HIDE_CP":
+            return {
+                ...state,
+                hideCP: action.payload
             }
         default:
             return state;
