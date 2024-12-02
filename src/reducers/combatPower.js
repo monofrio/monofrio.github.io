@@ -66,6 +66,9 @@ const combatPowerReducer = (state = initialState, action) => {
                 ...state,
                 hideCP: action.payload
             }
+        case "RESET_STATE":
+            return initialState
+
         default:
             return state;
     }

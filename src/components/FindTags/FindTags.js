@@ -5,6 +5,7 @@ import CombatPowerValue from "./CombatPowerValue";
 import AttributeAppraisal from "./AttributeAppraisal";
 import CopyButton from "./CopyButton";
 import CategoryTags from "./CategoryTags";
+import ResetButton from "./ResetButton";
 
 class FindTags extends React.Component {
 
@@ -35,10 +36,11 @@ class FindTags extends React.Component {
         const { includeCombatPower, combatPowerMin, includeAttribute  } = this.props;
 
         return (
-            <div className="container-TEST">
+            <div>
 
-                <div className={"mb-3"}>
-                    <CopyButton/>
+                <div className={"mb-3 row"}>
+                        <div className={"col"}><CopyButton/> </div>
+                          <div className={"col"}><ResetButton/></div>
                 </div>
                 <div className="accordion" id="accordion-find-tags">
                     <CategoryTags />

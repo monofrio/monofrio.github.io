@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { setFinalString } from "../../actions";
 
 class CopyButton extends React.Component {
     constructor(props) {
@@ -67,6 +68,8 @@ class CopyButton extends React.Component {
         // Combine all categories into a single string
         const finalString = categoryStrings.join(' & ');
 
+        this.props.setFinalString(finalString);
+
         this.setState({ finalString });
     };
 
@@ -87,23 +90,26 @@ class CopyButton extends React.Component {
 
         return (
             <div>
-                <p>{finalString}</p>
                 <button className="btn btn-outline-light" onClick={this.handleCopyButtonClick}>
-                    Copy Selected Tags
+                    Copy Search Query
                 </button>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, finalString) => ({
     findTags: state.findTags,
     includeCombatPower: state.combatPower.includeCombatPower,
     finalCPString: state.combatPower.finalCPString,
     hide: state.combatPower.hide, // Retrieve the hide state
     finalAttribute: state.attributeAppraisal.finalAttribute,
-    includeAttribute: state.attributeAppraisal.includeAttribute, // Ensure includeAttribute is mapped
-
+    includeAttribute: state.attributeAppraisal.includeAttribute,
+    finalString: state.finalCopy.finalString, // Map finalString from finalCopy reducer
 });
 
-export default connect(mapStateToProps)(CopyButton);
+const mapDispatchToProps = {
+    setFinalString,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CopyButton);

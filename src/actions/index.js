@@ -112,4 +112,16 @@ export const setFinalAttributeAppraisal = (values) => ({
 })
 
 
+export const SET_FINAL_STRING = "SET_FINAL_STRING";
+
+export const setFinalString = (finalString) => ({
+    type: SET_FINAL_STRING,
+    payload: finalString,
+});
+
+export const RESET_STATE = "RESET_STATE";
+
+export const resetState = () => ({
+    type: RESET_STATE,
+});
 

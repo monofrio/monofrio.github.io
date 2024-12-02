@@ -5,6 +5,7 @@ import gameTagsReducer from './gameTags';
 import customGameTagsReducer from './customGameTags';
 import findTagsReducer from './findTags'
 import attributeAppraisalReducer from "./AttributeAppraisal";
+import finalCopyReducer from "./finalCopy";
 
 const rootReducer = combineReducers({
     combatPower: combatPowerReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     customGameTags: customGameTagsReducer,
     findTags: findTagsReducer,
     attributeAppraisal: attributeAppraisalReducer,
+    finalCopy: finalCopyReducer
 });
 
 export default rootReducer;

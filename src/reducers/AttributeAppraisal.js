@@ -40,6 +40,9 @@ const attributeAppraisalReducer = (state = initialState, action) => {
                 ...state,
                 finalAttribute: action.payload,
             }
+        case "RESET_STATE":
+            return initialState
+
 
         default:
             return state;

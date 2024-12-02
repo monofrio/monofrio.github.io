@@ -407,7 +407,10 @@ const findTagsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.payload
-            };
+            }
+        case "RESET_STATE":
+            return initialState
+
         default:
             return state;
     }

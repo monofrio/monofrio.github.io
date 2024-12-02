@@ -42,7 +42,6 @@ This project utilizes the following technologies:
    - **@testing-library/user-event** (v14.5.2): Simulates user interactions for testing.
 - **Regexpu-Core** (v6.0.0): Enables working with Unicode regular expressions.
 - **Web Vitals** (v2.1.4): Measures app performance metrics like First Contentful Paint and Largest Contentful Paint.
-
 ### Deployment
 - **GitHub Pages**: The app is configured to deploy via GitHub Pages for free and accessible hosting.
 
@@ -56,3 +55,6 @@ Follow these steps to run the project locally:
    ```bash
    git clone https://github.com/yourusername/pokemon-go-search-tool.git
    cd pokemon-go-search-tool
+
+### Notes
+https://niantic.helpshift.com/hc/en/6-pokemon-go/faq/1486-searching-filtering-your-pokemon-inventory/
