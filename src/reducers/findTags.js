@@ -397,7 +397,129 @@ const initialState = {
         name: "fairy",
         display_name: "Fairy",
         category: "Type"
+    },
+    background: {
+        checked: "inactive",
+        name: "background",
+        display_name: "Any Background",
+        category: "Generic"
+    },
+
+    // Buddy level 0 (no buddy history)
+    buddy0: {
+        checked: "inactive",
+        name: "buddy0",
+        display_name: "No Buddy History",
+        category: "Generic"
+    },
+
+    // Capture source filters
+    eggsonly: {
+        checked: "inactive",
+        name: "eggsonly",
+        display_name: "Egg-Only",
+        category: "Source"
+    },
+    raid: {
+        checked: "inactive",
+        name: "raid",
+        display_name: "Raid",
+        category: "Source"
+    },
+    remoteraid: {
+        checked: "inactive",
+        name: "remoteraid",
+        display_name: "Remote Raid",
+        category: "Source"
+    },
+    megaraid: {
+        checked: "inactive",
+        name: "megaraid",
+        display_name: "Mega Raid",
+        category: "Source"
+    },
+    exraid: {
+        checked: "inactive",
+        name: "exraid",
+        display_name: "EX Raid",
+        category: "Source"
+    },
+    research: {
+        checked: "inactive",
+        name: "research",
+        display_name: "Research",
+        category: "Source"
+    },
+    rocket: {
+        checked: "inactive",
+        name: "rocket",
+        display_name: "Team GO Rocket",
+        category: "Source"
+    },
+    gbl: {
+        checked: "inactive",
+        name: "gbl",
+        display_name: "GO Battle League",
+        category: "Source"
+    },
+    snapshot: {
+        checked: "inactive",
+        name: "snapshot",
+        display_name: "Snapshot (Photobomb)",
+        category: "Source"
+    },
+
+    // “New evolution” and item-based evolve helpers
+    evolvenew: {
+        checked: "inactive",
+        name: "evolvenew",
+        display_name: "New Dex Evolution",
+        category: "Generic"
+    },
+    item: {
+        checked: "inactive",
+        name: "item",
+        display_name: "Item Evolve",
+        category: "Generic"
+    },
+
+    // Fusion candidates (Necrozma / Kyurem fusions)
+    fusion: {
+        checked: "inactive",
+        name: "fusion",
+        display_name: "Fusion",
+        category: "Generic"
+    },
+
+    // Gender filters
+    male: {
+        checked: "inactive",
+        name: "male",
+        display_name: "Male",
+        category: "Gender"
+    },
+    female: {
+        checked: "inactive",
+        name: "female",
+        display_name: "Female",
+        category: "Gender"
+    },
+    genderunknown: {
+        checked: "inactive",
+        name: "genderunknown",
+        display_name: "Gender Unknown",
+        category: "Gender"
+    },
+
+    // New year
+    year2025: {
+        checked: "inactive",
+        name: "year2025",
+        display_name: "2025",
+        category: "Year"
     }
+
+
 
 };
 

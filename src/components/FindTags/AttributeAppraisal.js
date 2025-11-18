@@ -16,112 +16,59 @@ class AttributeAppraisal extends React.Component {
     }
 
     setOutputString () {
-        const { selectedButtons, attackActive, defenseActive, hpActive, setFinalAttributeAppraisal } = this.props
-        let input = selectedButtons;
-        const attack = input.includes('attack')
-        const defence = input.includes('defence')
-        const hp = input.includes('hp')
+        const { selectedButtons, attackActive, defenseActive, hpActive, setFinalAttributeAppraisal } = this.props;
+        const input = selectedButtons;
+
+        // Generic helper that works for 1–4
+        const getRangeString = (prefix, label) => {
+            const levels = [1, 2, 3, 4].filter((n) =>
+                input.includes(`${prefix}${n}`)
+            );
+
+            if (levels.length === 0) {
+                return `0 ${label}`;
+            }
+
+            if (levels.length === 1) {
+                return `${levels[0]} ${label}`;
+            }
+
+            const min = Math.min(...levels);
+            const max = Math.max(...levels);
+
+            if (min === max) {
+                return `${min} ${label}`;
+            }
+
+            return `${min}-${max} ${label}`;
+        };
 
         let outputAttack = "";
         let outputDefence = "";
         let outputHp = "";
 
-        if( attackActive && !attack ){
-
-            outputAttack = "attack0"
-        }
-        if ( defenseActive && !defence){
-
-            outputDefence = "defence0"
-        }
-        if ( hpActive && !hp){
-            outputHp = "hp0"
+        if (attackActive) {
+            outputAttack = getRangeString("attack", "attack");
         }
 
-        const a1 = input.includes("attack1")
-        const a2 = input.includes("attack2")
-        const a3 = input.includes("attack3")
-
-        const d1 = input.includes("defence1")
-        const d2 = input.includes("defence2")
-        const d3 = input.includes("defence3")
-
-        const h1 = input.includes("hp1")
-        const h2 = input.includes("hp2")
-        const h3 = input.includes("hp3")
-
-        if (attackActive){
-                if(a1 && !a2 && !a3){
-                    outputAttack = "attack1"
-                }
-                if(!a1 && a2 && !a3){
-                    outputAttack = "attack2"
-                }
-                if(!a1 && !a2 && a3){
-                    outputAttack = "attack3"
-                }
-                if(a1 && a2 && !a3){
-                    outputAttack = "attack1-2"
-                }
-                if(a1 && a2 && a3){
-                    outputAttack = "attack1-3"
-                }
-                if(!a1 && a2 && a3){
-                    outputAttack = "attack2-3"
-                }
-            }
-
-        if (defenseActive){
-            if(d1 && !d2 && !d3){
-                outputDefence = "defense1"
-            }
-            if(!d1 && d2 && !d3){
-                outputDefence = "defense2"
-            }
-            if(!d1 && !d2 && d3){
-                outputDefence = "defense3"
-            }
-            if(d1 && d2 && !d3){
-                outputDefence = "defense1-2"
-            }
-            if(d1 && d2 && d3){
-                outputDefence = "defense1-3"
-            }
-            if(!d1 && d2 && d3){
-                outputDefence = "defense2-3"
-            }
+        if (defenseActive) {
+            // note: buttons use "defence" as the prefix
+            outputDefence = getRangeString("defence", "defense");
         }
 
-        if(hpActive){
-            if(h1 && !h2 && !h3){
-                outputHp = "hp1"
-            }
-            if(!h1 && h2 && !h3){
-                outputHp = "hp2"
-            }
-            if(!h1 && !h2 && h3){
-                outputHp = "hp3"
-            }
-            if(h1 && h2 && !h3){
-                outputHp = "hp1-2"
-            }
-            if(h1 && h2 && h3){
-                outputHp = "hp1-3"
-            }
-            if(!h1 && h2 && h3){
-                outputHp = "hp2-3"
-            }
+        if (hpActive) {
+            outputHp = getRangeString("hp", "hp");
         }
 
         let finalAttack = attackActive ? outputAttack + "&" : "";
         let finalDefence = defenseActive ? outputDefence + "&" : "";
-        let finalHP = hpActive ? outputHp + "&" : ""
+        let finalHP = hpActive ? outputHp + "&" : "";
 
-        let finalString =  finalAttack + finalDefence + finalHP
+        let finalString = finalAttack + finalDefence + finalHP;
 
-        setFinalAttributeAppraisal( finalString )
-
+        setFinalAttributeAppraisal(finalString);
     }
+
 
     setAttributeAppraisal(){
         const { selectedButtons } = this.props
@@ -292,9 +239,16 @@ class AttributeAppraisal extends React.Component {
                                 onClick={this.handleAttributeAppraisal}
                                 className={this.props.selectedButtons.includes('attack3') ? 'checked' : ''}
                             ></button>
+                            <button
+                                name="attack"
+                                value="4"
+                                onClick={this.handleAttributeAppraisal}
+                                className={this.props.selectedButtons.includes('attack4') ? 'checked' : ''}
+                            ></button>
                         </div>
                     </div>
                 )}
+
 
                 {(this.props.defenseActive  && this.props.includeAttribute) && (
                     <div id={"actionBar-defence"} className={"actionBar"}>
@@ -318,9 +272,16 @@ class AttributeAppraisal extends React.Component {
                                 onClick={this.handleAttributeAppraisal}
                                 className={this.props.selectedButtons.includes('defence3') ? 'checked' : ''}
                             ></button>
+                            <button
+                                name="defence"
+                                value="4"
+                                onClick={this.handleAttributeAppraisal}
+                                className={this.props.selectedButtons.includes('defence4') ? 'checked' : ''}
+                            ></button>
                         </div>
                     </div>
                 )}
+
 
                 {(this.props.hpActive && this.props.includeAttribute) && (
                     <div id={"actionBar-hp"} className={"actionBar"}>
@@ -344,9 +305,16 @@ class AttributeAppraisal extends React.Component {
                                 onClick={this.handleAttributeAppraisal}
                                 className={this.props.selectedButtons.includes('hp3') ? 'checked' : ''}
                             ></button>
+                            <button
+                                name="hp"
+                                value="4"
+                                onClick={this.handleAttributeAppraisal}
+                                className={this.props.selectedButtons.includes('hp4') ? 'checked' : ''}
+                            ></button>
                         </div>
                     </div>
                 )}
+
             </div>
         );
     }
